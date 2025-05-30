@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Evitar parpadeo del tema oscuro */
+body {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* ===================================
+   ANIMACIONES GLOBAL
+=================================== */
+@keyframes floatxy {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-10px, -15px); }
+  50% { transform: translate(15px, 10px); }
+  75% { transform: translate(-20px, 5px); }
+  100% { transform: translate(0, -10px); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===================================
+   TRANSICIONES GENERALES
+=================================== */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ===================================
+   FLOATING SKILLS
+=================================== */
+.floating-skill {
+  position: absolute;
+  animation: floatxy 12s ease-in-out infinite alternate;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 9999px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.floating-skill:hover {
+  transform: scale(1.3) rotate(10deg);
+  z-index: 10;
+}
+
+.explode {
+  transform: scale(1.8) !important;
+  opacity: 0 !important;
+}

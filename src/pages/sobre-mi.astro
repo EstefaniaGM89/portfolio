@@ -1,0 +1,97 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <section class="py-20 px-6 max-w-6xl mx-auto">
+    <!-- Título decorado -->
+    <div class="text-center mb-16">
+      <h2
+        class="text-4xl font-bold text-gray-900 dark:text-white relative inline-block after:block after:h-1 after:w-24 after:bg-purple-600 after:mx-auto after:mt-2"
+      >
+        Sobre mí
+      </h2>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <!-- Texto -->
+      <div class="animate-fade-up duration-1000">
+        <p class="text-lg text-gray-700 dark:text-gray-300">
+          Hola, soy <strong>Estefanía</strong>, desarrolladora de software con
+          alma creativa y mente enfocada. Actualmente finalizando el ciclo
+          superior de <strong>Desarrollo de Aplicaciones Web</strong>, ya he
+          trabajado en proyectos reales tanto en frontend como en backend.
+        </p>
+
+        <p class="text-lg text-gray-700 dark:text-gray-300">
+          Me apasiona el <strong>desarrollo personal</strong>, el crecimiento
+          continuo y ayudar a otros a elevar su rendimiento y propósito. Por eso
+          combino mi faceta técnica con formación y contenido en redes.
+        </p>
+
+        <p class="text-lg text-gray-700 dark:text-gray-300">
+          He trabajado con tecnologías como <strong
+            >Laravel, MySQL, JavaScript, Swift</strong
+          > y he participado en campañas de <strong>marketing digital</strong> en
+          una app internacional.
+        </p>
+
+        <!-- Badges tipo “pill” -->
+        <div class="flex flex-wrap gap-3 mt-6">
+          <span
+            class="bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 px-4 py-1 rounded-full text-sm"
+            >Autodidacta</span
+          >
+          <span
+            class="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 px-4 py-1 rounded-full text-sm"
+            >Constancia</span
+          >
+          <span
+            class="bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200 px-4 py-1 rounded-full text-sm"
+            >Versatilidad</span
+          >
+          <span
+            class="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 px-4 py-1 rounded-full text-sm"
+            >Creatividad</span
+          >
+          <span
+            class="bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 px-4 py-1 rounded-full text-sm"
+            >Comunicación</span
+          >
+          <span
+            class="bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 px-4 py-1 rounded-full text-sm"
+            >Aprendizaje continuo</span
+          >
+          <span
+            class="bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200 px-4 py-1 rounded-full text-sm"
+            >Marketing digital</span
+          >
+          <span
+            class="bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 px-4 py-1 rounded-full text-sm"
+            >Desarrollo Web</span
+          >
+          <span
+            class="bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-200 px-4 py-1 rounded-full text-sm"
+            >Empatía</span
+          >
+          <span
+            class="bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200 px-4 py-1 rounded-full text-sm"
+            >Creación de contenido</span
+          >
+        </div>
+      </div>
+
+      <!-- Imagen -->
+      <div class="flex justify-center animate-fade-in delay-100">
+        <img
+          src="/img/sobre-mi-ilustracion-anime.png"
+          alt="Ilustración anime de Estefanía programando"
+          class="rounded-2xl shadow-2xl max-w-sm md:max-w-md w-full"
+        />
+      </div>
+    </div>
+  </section>
+</Layout>
+<!-- Script JS externo -->
+<script src="/js/main.js" defer></script>

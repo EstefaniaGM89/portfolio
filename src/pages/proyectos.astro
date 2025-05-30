@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = [
+  {
+    title: 'JustType AI Keyboard',
+    description: 'Colaboración en una app de teclado inteligente para iOS de autocorrección, con traducción automática en +70 idiomas, y ChatGpt incorporado. Aporté en desarrollo con Swift en X-Code y en la estrategia de Marketing Digital.',
+    technologies: ['Swift', 'Xcode', 'iOS', 'Keyboard', 'Marketing Digital'],
+    image: '/img/justtype.png',
+    link: 'https://apps.apple.com/us/app/justtype-ai-keyboard/id6590604907'
+  },
+  {
+    title: 'Recordatorios de Medicación',
+    description: 'App web para gestionar pacientes y sus tratamientos crónicos. Pensada para residencias y/o hospitales.',
+    technologies: ['Laravel', 'Vite','PHP', 'MySQL', 'Blade', 'HTML', 'CSS', 'JavaScript', 'Tailwind CSS'],
+    image: '/img/meditrack.png',
+    link: '#'
+  }
+];
+---
+
+<Layout>
+  <section class="py-20 px-4 md:px-0 max-w-6xl mx-auto">
+    <h1 class="text-4xl font-bold text-center mb-12">Mis proyectos</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+      {projects.map((project, i) => (
+        <div class={`animate-fade-in delay-[${i * 150}ms]`}>
+          <ProjectCard {...project} />
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>
+<!-- Script JS externo -->
+<script src="/js/main.js" defer></script>
