@@ -42,4 +42,57 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => skill.classList.remove('explode'), 1000);
     });
   });
+
+  // Menú responsive toggle
+  const mobileToggle = document.getElementById('mobile-menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (mobileToggle && mobileMenu) {
+    mobileToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
+
+  // Chatbot toggle
+  const chatbotToggle = document.getElementById('chatbot-toggle');
+  const chatbotWindow = document.getElementById('chatbot-window');
+  const chatbotClose = document.getElementById('chatbot-close');
+
+  if (chatbotToggle && chatbotWindow) {
+    chatbotToggle.addEventListener('click', () => {
+      chatbotWindow.classList.toggle('hidden');
+    });
+  }
+
+  if (chatbotClose && chatbotWindow) {
+    chatbotClose.addEventListener('click', () => {
+      chatbotWindow.classList.add('hidden');
+    });
+  }
+
+  // Interactividad del chatbot
+  const questionButtons = document.querySelectorAll('.chat-question');
+  const responseArea = document.getElementById('chat-response');
+
+  const respuestas = {
+    '¿Qué hace esta web?':
+      'Esta web es mi portfolio profesional donde muestro mis proyectos, tecnologías y experiencia como desarrolladora web.',
+    '¿Qué tecnologías manejo?':
+      'HTML, CSS, JavaScript, TypeScript, TailwindCSS, Bootstrap, React, Angular, PHP, Laravel, Vite, MySQL, MongoDB, Swift, Docker, Figma, Git y GitHub.',
+    '¿Qué soft skills tengo?':
+      'Soy autodidacta, constante, versátil, creativa y empática. Me encanta el aprendizaje continuo y trabajar en equipo. También tengo experiencia en comunicación, marketing y UX/UI.',
+    '¿Cómo ver mis proyectos?':
+      'Puedes ir a la sección "Proyectos" desde el menú o usando el botón morado que aparece en la portada.',
+    '¿Cómo contactar conmigo?':
+      'Puedes encontrar mis datos de contacto en la sección final del portfolio.'
+  };
+
+  questionButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const texto = btn.innerText.trim();
+      const respuesta = respuestas[texto] || 'Ups, aún no tengo una respuesta para eso.';
+      if (responseArea) {
+        responseArea.textContent = respuesta;
+      }
+    });
+  });
 });
