@@ -69,9 +69,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Interactividad del chatbot
+  // Estilos para cursor parpadeante
+  if (!document.getElementById('chatbot-style')) {
+    const style = document.createElement('style');
+    style.id = 'chatbot-style';
+    style.textContent = `
+      .chat-cursor::after {
+        content: '|';
+        animation: blink 1s step-start infinite;
+        margin-left: 2px;
+      }
+      @keyframes blink {
+        50% { opacity: 0; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // Interactividad del chatbot con escritura y cursor real
   const questionButtons = document.querySelectorAll('.chat-question');
   const responseArea = document.getElementById('chat-response');
+  let writingInterval;
 
   const respuestas = {
     '¿Qué hace esta web?':
@@ -90,9 +108,24 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       const texto = btn.innerText.trim();
       const respuesta = respuestas[texto] || 'Ups, aún no tengo una respuesta para eso.';
-      if (responseArea) {
-        responseArea.textContent = respuesta;
-      }
+
+      clearInterval(writingInterval);
+
+      // Reset contenido
+      responseArea.innerHTML = '<span id="typed-text"></span>';
+      responseArea.classList.add('chat-cursor');
+      const typedText = document.getElementById('typed-text');
+      let i = 0;
+
+      writingInterval = setInterval(() => {
+        if (i < respuesta.length) {
+          typedText.textContent += respuesta.charAt(i);
+          i++;
+        } else {
+          clearInterval(writingInterval);
+          responseArea.classList.remove('chat-cursor');
+        }
+      }, 25);
     });
   });
 });
