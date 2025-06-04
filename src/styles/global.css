@@ -5,13 +5,18 @@
 /* ===================================
    EFECTO SUAVE ENTRE MODOS OSCURO/CLARO
 =================================== */
-body {
-  transition: background-color 0.3s, color 0.3s;
-}
-
 html {
+  @apply bg-white text-gray-900 dark:bg-gray-900 dark:text-white;
   transition: background-color 0.3s ease, color 0.3s ease;
   scroll-behavior: smooth;
+}
+
+html.invisible {
+  visibility: hidden;
+}
+
+body {
+  transition: background-color 0.3s, color 0.3s;
 }
 
 /* ===================================
@@ -76,4 +81,16 @@ html {
 .explode {
   transform: scale(1.8) !important;
   opacity: 0 !important;
+}
+
+html.invisible {
+  visibility: hidden;
+}
+
+html {
+  background-color: #ffffff;
+}
+
+html.dark {
+  background-color: #0f172a; /* o el mismo que uses en dark:bg-... */
 }
