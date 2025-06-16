@@ -170,80 +170,80 @@ import "../styles/global.css";
       <img src="/img/react.png" alt="React" class="w-16 h-16" />
     </div>
   </div>
-</Layout>
-<!-- CHATBOT FLOTANTE -->
-<div id="chatbot" class="fixed bottom-6 right-6 z-50">
-  <!-- Botón flotante con avatar -->
-  <button
-    id="chatbot-toggle"
-    class="rounded-full p-1 shadow-lg focus:outline-none transition bg-transparent"
-    aria-label="Abrir chatbot"
-  >
-    <img
-      src="/img/chibi.png"
-      alt="Avatar Chibi Estefanía"
-      class="w-14 h-14 rounded-full border-2 border-purple-600 hover:border-purple-700 transition duration-300"
-    />
-  </button>
 
-  <!-- Ventana de chat -->
-  <div
-    id="chatbot-window"
-    class="hidden mt-2 w-80 bg-white dark:bg-gray-800 rounded-xl shadow-xl p-4 text-sm"
-  >
-    <div class="flex justify-between items-center mb-2">
-      <h3 class="text-purple-600 font-bold">Chibi-Asistente</h3>
-      <button
-        id="chatbot-close"
-        class="text-gray-400 hover:text-red-500 text-lg font-bold"
-        >&times;</button
-      >
-    </div>
+  <!-- CHATBOT FLOTANTE -->
+  <div id="chatbot" class="fixed bottom-6 right-6 z-50">
+    <!-- Botón flotante con avatar -->
+    <button
+      id="chatbot-toggle"
+      class="rounded-full p-1 shadow-lg focus:outline-none transition bg-transparent"
+      aria-label="Abrir chatbot"
+    >
+      <img
+        src="/img/chibi.png"
+        alt="Avatar Chibi Estefanía"
+        class="w-14 h-14 rounded-full border-2 border-purple-600 hover:border-purple-700 transition duration-300"
+      />
+    </button>
 
-    <div class="space-y-3 text-gray-700 dark:text-gray-200">
-      <p>👋 ¡Hola! Soy tu pequeña asistente. ¿En qué puedo ayudarte?</p>
-      <div class="space-y-2">
+    <!-- Ventana de chat -->
+    <div
+      id="chatbot-window"
+      class="hidden mt-2 w-80 bg-white dark:bg-gray-800 rounded-xl shadow-xl p-4 text-sm"
+    >
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-purple-600 font-bold">Chibi-Asistente</h3>
         <button
-          class="chat-question block text-left w-full hover:underline text-purple-600"
+          id="chatbot-close"
+          class="text-gray-400 hover:text-red-500 text-lg font-bold"
+          >&times;</button
         >
-          ¿Qué hace esta web?
-        </button>
-
-        <button
-          class="chat-question block text-left w-full hover:underline text-purple-600"
-        >
-          ¿Qué tecnologías manejo?
-        </button>
-
-        <button
-          class="chat-question block text-left w-full hover:underline text-purple-600"
-        >
-          ¿Qué soft skills tengo?
-        </button>
-        <button
-          class="chat-question block text-left w-full hover:underline text-purple-600"
-        >
-          ¿Cómo ver mis proyectos?
-        </button>
-        <button
-          class="chat-question block text-left w-full hover:underline text-purple-600"
-        >
-          ¿Cómo contactar conmigo?
-        </button>
       </div>
 
-      <div
-        id="chat-response"
-        class="mt-4 text-sm text-gray-600 dark:text-gray-300"
-      >
-      </div>
+      <div class="space-y-3 text-gray-700 dark:text-gray-200">
+        <p>👋 ¡Hola! Soy tu pequeña asistente. ¿En qué puedo ayudarte?</p>
+        <div class="space-y-2">
+          <button
+            class="chat-question block text-left w-full hover:underline text-purple-600"
+          >
+            ¿Qué hace esta web?
+          </button>
 
-      <p class="text-xs text-gray-400 mt-4">
-        Respuestas simuladas. Chat en desarrollo.
-      </p>
+          <button
+            class="chat-question block text-left w-full hover:underline text-purple-600"
+          >
+            ¿Qué tecnologías manejo?
+          </button>
+
+          <button
+            class="chat-question block text-left w-full hover:underline text-purple-600"
+          >
+            ¿Qué soft skills tengo?
+          </button>
+          <button
+            class="chat-question block text-left w-full hover:underline text-purple-600"
+          >
+            ¿Cómo ver mis proyectos?
+          </button>
+          <button
+            class="chat-question block text-left w-full hover:underline text-purple-600"
+          >
+            ¿Cómo contactar conmigo?
+          </button>
+        </div>
+
+        <div
+          id="chat-response"
+          class="mt-4 text-sm text-gray-600 dark:text-gray-300"
+        >
+        </div>
+
+        <p class="text-xs text-gray-400 mt-4">
+          Respuestas simuladas. Chat en desarrollo.
+        </p>
+      </div>
     </div>
   </div>
-</div>
-
+</Layout>
 <!-- Script JS externo -->
 <script src="/js/main.js" defer></script>
