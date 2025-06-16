@@ -51,4 +51,4 @@ Puedes ver una demo en: [https://estefaniagm-portfolio.vercel.app](https://estef
 
 ---
 
-Desarrollado con 💜
+Desarrollado con 💜 por Estefanía García.
