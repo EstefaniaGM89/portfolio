@@ -94,3 +94,16 @@ html {
 html.dark {
   background-color: #0f172a; /* o el mismo que uses en dark:bg-... */
 }
+
+/* ===================================
+  [Component] Chatbot
+=================================== */
+.chatbot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.chatbot__window {
+  box-shadow: 0 0 3px;
+}
