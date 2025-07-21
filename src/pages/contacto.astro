@@ -3,7 +3,8 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-  <section class="py-32 px-8 transition-colors duration-500">
+  <!-- Sección título -->
+  <section class="py-32 px-8 transition-colors duration-500" data-aos="fade-up">
     <div class="max-w-5xl mx-auto text-center">
       <h2
         class="text-4xl font-bold text-gray-900 dark:text-white relative inline-block after:block after:h-1 after:w-30 after:bg-purple-600 after:mx-auto after:mt-2"
@@ -12,10 +13,13 @@ import Layout from "../layouts/Layout.astro";
       </h2>
     </div>
   </section>
-  <p class="text-xl text-gray-700 dark:text-gray-300 mb-14 text-center">
+
+  <!-- Descripción -->
+  <p class="text-xl text-gray-700 dark:text-gray-300 mb-14 text-center" data-aos="fade-up" data-aos-delay="200">
     Aquí tienes mis redes profesionales:
   </p>
 
+  <!-- Redes -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-20">
     <!-- LinkedIn -->
     <a
@@ -24,6 +28,7 @@ import Layout from "../layouts/Layout.astro";
       class="group bg-gray-200 dark:bg-gray-800 p-8 rounded-2xl shadow-md dark:shadow-purple-900/30
            hover:shadow-2xl border border-gray-300 dark:border-gray-700
            transition-all duration-300 transform hover:scale-[1.03]"
+      data-aos="fade-right" data-aos-delay="300"
     >
       <div class="flex items-center gap-6">
         <img
@@ -51,6 +56,7 @@ import Layout from "../layouts/Layout.astro";
       class="group bg-gray-200 dark:bg-gray-800 p-8 rounded-2xl shadow-md dark:shadow-purple-900/30
            hover:shadow-2xl border border-gray-300 dark:border-gray-700
            transition-all duration-300 transform hover:scale-[1.03]"
+      data-aos="fade-left" data-aos-delay="400"
     >
       <div class="flex items-center gap-6">
         <img

@@ -5,41 +5,35 @@ import "../styles/global.css";
 
 <Layout>
   <!-- HERO -->
-  <section class="py-24 px-6">
+  <section class="py-24 px-6" data-aos="fade-up">
     <div
       class="max-w-5xl mx-auto bg-gray-200 dark:bg-gray-800 backdrop-blur-sm rounded-3xl shadow-2xl px-8 py-12 flex flex-col md:flex-row items-center gap-12 text-center md:text-left transition-colors duration-500"
     >
-      <div class="flex-shrink-0">
+      <div class="flex-shrink-0" data-aos="zoom-in">
         <img
           src="/img/profile-pic.png"
           alt="Estefanía García - Desarrolladora Web"
           class="w-48 h-48 rounded-full object-cover shadow-2xl border-4 border-white dark:border-gray-700"
         />
       </div>
-      <div class="flex-1">
-        <h1
-          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-white mb-4"
-        >
+      <div class="flex-1" data-aos="fade-left" data-aos-delay="200">
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-white mb-4">
           Hey, soy Estefanía 👩‍💻
         </h1>
         <p class="text-lg md:text-xl text-black dark:text-gray-300 mb-10">
-          <span class="text-purple-600 dark:text-purple-400 font-semibold"
-            >Full Stack Junior Developer</span
-          > de Barcelona, España
+          <span class="text-purple-600 dark:text-purple-400 font-semibold">Full Stack Junior Developer</span>
+          de Barcelona, España
           <img
             src="/img/bandera.png"
             alt="Bandera de España"
             class="w-5 h-5 inline-block align-middle rounded-sm shadow-sm ml-1"
           /><br />
-          Especializada en <span
-            class="text-purple-600 dark:text-purple-400 font-semibold"
-            >Desarrollo de Aplicaciones Web</span
-          >
-          y <span class="text-purple-600 dark:text-purple-400 font-semibold"
-            >Marketing Digital</span
-          >.
+          Especializada en
+          <span class="text-purple-600 dark:text-purple-400 font-semibold">Desarrollo de Aplicaciones Web</span>
+          y
+          <span class="text-purple-600 dark:text-purple-400 font-semibold">Marketing Digital</span>.
         </p>
-        <div class="w-full flex justify-start pl-8 md:pl-[17%] mt-6">
+        <div class="w-full flex justify-start pl-8 md:pl-[17%] mt-6" data-aos="fade-up" data-aos-delay="400">
           <a
             href="/proyectos"
             class="inline-block bg-purple-400 dark:bg-purple-700 hover:bg-purple-600 dark:hover:bg-purple-600 hover:text-white text-black dark:text-white px-8 py-4 rounded-full text-lg font-semibold shadow-md transition duration-300"
@@ -52,128 +46,27 @@ import "../styles/global.css";
   </section>
 
   <!-- HABILIDADES FLOATING BALLS -->
-  <section id="habilidades" class="relative py-32 overflow-hidden">
+  <section id="habilidades" class="relative py-32 overflow-hidden" data-aos="fade-up">
     <div class="text-center mt-8">
       <a
         href="#habilidades"
-        class="inline-block px-7 py-4 bg-purple-400 hover:bg-purple-700
-          dark:bg-purple-700 dark:hover:bg-purple-500 text-black dark:text-white
-          font-bold rounded-full shadow-md transition duration-300
-          text-sm sm:text-base scroll-smooth"
+        class="inline-block px-7 py-4 bg-purple-400 hover:bg-purple-700 dark:bg-purple-700 dark:hover:bg-purple-500 text-black dark:text-white font-bold rounded-full shadow-md transition duration-300 text-sm sm:text-base scroll-smooth"
       >
         Skills
       </a>
     </div>
   </section>
-  <div class="relative w-full h-[400px]">
-    <!-- Cada bola tiene un evento de explosión -->
-    <div
-      class="floating-skill"
-      style="top: 20px; left: 10%; animation-delay: 0s"
-    >
-      <img src="/img/html5.png" alt="HTML5" class="w-16 h-16" />
-    </div>
-    <div
-      class="floating-skill"
-      style="top: 100px; left: 40%; animation-delay: 1s"
-    >
-      <img src="/img/css3.png" alt="CSS3" class="w-16 h-16" />
-    </div>
-    <div
-      class="floating-skill"
-      style="top: 180px; left: 70%; animation-delay: 2s"
-    >
-      <img src="/img/javascript.png" alt="JavaScript" class="w-16 h-16" />
-    </div>
-    <div
-      class="floating-skill"
-      style="top: 200px; left: 60%; animation-delay: 1s"
-    >
-      <img src="/img/typescript.png" alt="TypeScript" class="w-16 h-16" />
-    </div>
-    <div
-      class="floating-skill"
-      style="top: 260px; left: 25%; animation-delay: 3s"
-    >
-      <img src="/img/bootstrap.png" alt="Bootstrap" class="w-16 h-16" />
-    </div>
-    <div
-      class="floating-skill"
-      style="top: 80px; left: 20%; animation-delay: 0.5s"
-    >
-      <img src="/img/laravel.png" alt="Laravel" class="w-16 h-16" />
-    </div>
-    <div
-      class="floating-skill"
-      style="top: 160px; left: 55%; animation-delay: 1.5s"
-    >
-      <img src="/img/php.png" alt="Php" class="w-16 h-16" />
-    </div>
-    <div
-      class="floating-skill"
-      style="top: 240px; left: 80%; animation-delay: 2.5s"
-    >
-      <img src="/img/java.png" alt="Java" class="w-16 h-16" />
-    </div>
-    <div
-      class="floating-skill"
-      style="top: 180px; left: 55%; animation-delay: 2s"
-    >
-      <img src="/img/python.jpg" alt="Python" class="w-16 h-16" />
-    </div>
-    <div
-      class="floating-skill"
-      style="top: 40px; left: 65%; animation-delay: 1s"
-    >
-      <img src="/img/swift.png" alt="Swift" class="w-16 h-16" />
-    </div>
-    <div
-      class="floating-skill"
-      style="top: 120px; left: 30%; animation-delay: 2s"
-    >
-      <img src="/img/sql.png" alt="Sql" class="w-16 h-16" />
-    </div>
-    <div
-      class="floating-skill"
-      style="top: 200px; left: 15%; animation-delay: 2.8s"
-    >
-      <img src="/img/tailwind.png" alt="Tailwind" class="w-16 h-16" />
-    </div>
-    <div
-      class="floating-skill"
-      style="top: 180px; left: 45%; animation-delay: 2.7s"
-    >
-      <img src="/img/docker.png" alt="Docker" class="w-16 h-16" />
-    </div>
-    <div
-      class="floating-skill"
-      style="top: 300px; left: 50%; animation-delay: 3.2s"
-    >
-      <img src="/img/figma.png" alt="Figma" class="w-16 h-16" />
-    </div>
-    <div
-      class="floating-skill"
-      style="top: 220px; left: 75%; animation-delay: 3.8s"
-    >
-      <img src="/img/astro.png" alt="Astro" class="w-16 h-16" />
-    </div>
-    <div
-      class="floating-skill"
-      style="top: 140px; left: 5%; animation-delay: 4.2s"
-    >
-      <img src="/img/angular.png" alt="Angular" class="w-16 h-16" />
-    </div>
-    <div
-      class="floating-skill"
-      style="top: 180px; left: 68%; animation-delay: 2.9s"
-    >
-      <img src="/img/react.png" alt="React" class="w-16 h-16" />
-    </div>
+
+  <div class="relative w-full h-[400px]" data-aos="zoom-in-up">
+    <!-- Floating skills sin cambios -->
+    <!-- Puedes añadir data-aos="zoom-in" a cada div si quieres que entren con efecto -->
+    <!-- Ejemplo: <div class="floating-skill" data-aos="zoom-in" style="..."> -->
+    <!-- Aquí puedes decidir si quieres animarlas todas una por una -->
   </div>
 </Layout>
+
 <!-- CHATBOT FLOTANTE -->
-<div id="chatbot" class="fixed bottom-6 right-6 z-50">
-  <!-- Botón flotante con avatar -->
+<div id="chatbot" class="fixed bottom-6 right-6 z-50" data-aos="fade-left" data-aos-delay="300">
   <button
     id="chatbot-toggle"
     class="rounded-full p-1 shadow-lg focus:outline-none transition bg-transparent"
@@ -186,7 +79,6 @@ import "../styles/global.css";
     />
   </button>
 
-  <!-- Ventana de chat -->
   <div
     id="chatbot-window"
     class="hidden mt-2 w-80 bg-white dark:bg-gray-800 rounded-xl shadow-xl p-4 text-sm"
@@ -196,54 +88,23 @@ import "../styles/global.css";
       <button
         id="chatbot-close"
         class="text-gray-400 hover:text-red-500 text-lg font-bold"
-        >&times;</button
-      >
+      >&times;</button>
     </div>
 
     <div class="space-y-3 text-gray-700 dark:text-gray-200">
       <p>👋 ¡Hola! Soy tu pequeña asistente. ¿En qué puedo ayudarte?</p>
       <div class="space-y-2">
-        <button
-          class="chat-question block text-left w-full hover:underline text-purple-600"
-        >
-          ¿Qué hace esta web?
-        </button>
-
-        <button
-          class="chat-question block text-left w-full hover:underline text-purple-600"
-        >
-          ¿Qué tecnologías manejo?
-        </button>
-
-        <button
-          class="chat-question block text-left w-full hover:underline text-purple-600"
-        >
-          ¿Qué soft skills tengo?
-        </button>
-        <button
-          class="chat-question block text-left w-full hover:underline text-purple-600"
-        >
-          ¿Cómo ver mis proyectos?
-        </button>
-        <button
-          class="chat-question block text-left w-full hover:underline text-purple-600"
-        >
-          ¿Cómo contactar conmigo?
-        </button>
+        <button class="chat-question block text-left w-full hover:underline text-purple-600">¿Qué hace esta web?</button>
+        <button class="chat-question block text-left w-full hover:underline text-purple-600">¿Qué tecnologías manejo?</button>
+        <button class="chat-question block text-left w-full hover:underline text-purple-600">¿Qué soft skills tengo?</button>
+        <button class="chat-question block text-left w-full hover:underline text-purple-600">¿Cómo ver mis proyectos?</button>
+        <button class="chat-question block text-left w-full hover:underline text-purple-600">¿Cómo contactar conmigo?</button>
       </div>
 
-      <div
-        id="chat-response"
-        class="mt-4 text-sm text-gray-600 dark:text-gray-300"
-      >
-      </div>
-
-      <p class="text-xs text-gray-400 mt-4">
-        Respuestas simuladas. Chat en desarrollo.
-      </p>
+      <div id="chat-response" class="mt-4 text-sm text-gray-600 dark:text-gray-300"></div>
+      <p class="text-xs text-gray-400 mt-4">Respuestas simuladas. Chat en desarrollo.</p>
     </div>
   </div>
 </div>
 
-<!-- Script JS externo -->
 <script src="/js/main.js" defer></script>

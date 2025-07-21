@@ -11,22 +11,42 @@ import Footer from "../components/Footer.astro";
     <link rel="icon" href="/gamer.ico" type="image/x-icon" />
 
     <!-- META para compartir -->
-    <meta property="og:title" content="Estefanía Portfolio | Full Stack Junior Developer" />
-    <meta property="og:description" content="Soy Full Stack Junior Developer especializada en desarrollo web y marketing digital." />
-    <meta property="og:image" content="https://estefaniagm-portfolio.vercel.app/img/chibi.png" />
+    <meta
+      property="og:title"
+      content="Estefanía Portfolio | Full Stack Junior Developer"
+    />
+    <meta
+      property="og:description"
+      content="Soy Full Stack Junior Developer especializada en desarrollo web y marketing digital."
+    />
+    <meta
+      property="og:image"
+      content="https://estefaniagm-portfolio.vercel.app/img/chibi.png"
+    />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://estefaniagm-portfolio.vercel.app" />
+    <meta
+      property="og:url"
+      content="https://estefaniagm-portfolio.vercel.app"
+    />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Estefanía | Portfolio" />
-    <meta name="twitter:description" content="Full Stack Junior Developer con pasión por la tecnología y el aprendizaje constante." />
-    <meta name="twitter:image" content="https://estefaniagm-portfolio.vercel.app/img/chibi.png" />
+    <meta
+      name="twitter:description"
+      content="Full Stack Junior Developer con pasión por la tecnología y el aprendizaje constante."
+    />
+    <meta
+      name="twitter:image"
+      content="https://estefaniagm-portfolio.vercel.app/img/chibi.png"
+    />
 
     <!-- Preinicializa el tema sin parpadeo -->
     <script is:inline>
       (() => {
         const theme = localStorage.getItem("theme");
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
         const isDark = theme === "dark" || (!theme && prefersDark);
         document.documentElement.classList.toggle("dark", isDark);
         document.documentElement.classList.remove("invisible");
@@ -36,7 +56,9 @@ import Footer from "../components/Footer.astro";
     <link rel="stylesheet" href="/src/styles/global.css" />
   </head>
 
-  <body class="font-sans bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300">
+  <body
+    class="font-sans bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300"
+  >
     <Header />
     <main class="min-h-screen px-4 md:px-12 py-6 max-w-5xl mx-auto">
       <slot />
@@ -44,5 +66,9 @@ import Footer from "../components/Footer.astro";
     <Footer />
 
     <script src="/js/main.js" defer></script>
+    <script type="module">
+      import { initAOS } from "/src/scripts/aos-init.js";
+      initAOS();
+    </script>
   </body>
 </html>

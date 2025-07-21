@@ -94,3 +94,5 @@ html {
 html.dark {
   background-color: #0f172a; /* o el mismo que uses en dark:bg-... */
 }
+
+@import "aos/dist/aos.css";
