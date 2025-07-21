@@ -11,12 +11,20 @@ html {
   scroll-behavior: smooth;
 }
 
+#proyectos {
+  scroll-margin-top: 80px;
+}
+
 html.invisible {
   visibility: hidden;
 }
 
 body {
   transition: background-color 0.3s, color 0.3s;
+}
+
+html.dark {
+  background-color: #0f172a; /* si usas otro color base en dark:bg-... */
 }
 
 /* ===================================
@@ -83,16 +91,7 @@ body {
   opacity: 0 !important;
 }
 
-html.invisible {
-  visibility: hidden;
-}
-
-html {
-  background-color: #ffffff;
-}
-
-html.dark {
-  background-color: #0f172a; /* o el mismo que uses en dark:bg-... */
-}
-
+/* ===================================
+   AOS (animaciones al hacer scroll)
+=================================== */
 @import "aos/dist/aos.css";
