@@ -1,83 +1,75 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+const networks = [
+  {
+    name: "LinkedIn",
+    description: "Conecta conmigo y descubre mi experiencia profesional.",
+    image: "/img/linkedin.png",
+    url: "https://www.linkedin.com/in/estefaniagm89/",
+    action: "Visitar LinkedIn",
+  },
+  {
+    name: "GitHub",
+    description: "Explora mis repositorios, proyectos y código.",
+    image: "/img/github.jpg",
+    url: "https://github.com/EstefaniaGM89",
+    action: "Visitar GitHub",
+  },
+];
 ---
 
 <Layout>
-  <!-- Sección título -->
-  <section class="py-32 px-8 transition-colors duration-500" data-aos="fade-up">
-    <div class="max-w-5xl mx-auto text-center">
-      <h2
-        class="text-4xl font-bold text-gray-900 dark:text-white relative inline-block after:block after:h-1 after:w-30 after:bg-purple-600 after:mx-auto after:mt-2"
-      >
-        Contacto
-      </h2>
+  <section
+    class="relative isolate mx-auto max-w-6xl px-4 pb-28 pt-20 sm:px-6 lg:px-8 lg:pt-28"
+    aria-labelledby="contact-title"
+  >
+    <div
+      class="pointer-events-none absolute right-0 top-0 -z-10 h-[420px] w-[420px] max-w-full rounded-full bg-purple-600/10 blur-[110px]"
+      aria-hidden="true"
+    ></div>
+
+    <header class="mb-14 text-center" data-aos="fade-up">
+      <p class="mb-4 font-mono text-xs tracking-[0.3em] text-purple-400">
+        LET'S CONNECT
+      </p>
+      <h1 id="contact-title" class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+        Hablemos<span class="gradient-text">.</span>
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-base leading-8 text-gray-400">
+        ¿Te interesa mi perfil o alguno de mis proyectos? Puedes encontrarme en mis redes profesionales.
+      </p>
+    </header>
+
+    <div class="grid items-stretch gap-5 md:grid-cols-2">
+      {networks.map((network) => (
+        <a
+          href={network.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${network.action} (se abre en una pestaña nueva)`}
+          class="glass-card group flex h-full flex-col p-6 sm:p-8"
+        >
+          <div class="flex items-center gap-5">
+            <div class="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-purple-400/20 bg-[#1d172b] p-2">
+              <img src={network.image} alt="" loading="lazy" class="h-full w-full object-contain" />
+            </div>
+            <div class="min-w-0">
+              <h2 class="text-2xl font-bold text-white transition-colors duration-300 group-hover:text-purple-300">
+                {network.name}
+              </h2>
+              <p class="mt-2 text-sm leading-6 text-gray-400">{network.description}</p>
+            </div>
+          </div>
+          <div class="mt-auto flex items-center gap-2 pt-8 text-sm font-semibold text-purple-300 transition-colors duration-300 group-hover:text-purple-200">
+            {network.action}<span aria-hidden="true">↗</span>
+          </div>
+        </a>
+      ))}
     </div>
+
+    <p class="mx-auto mt-12 max-w-xl text-center text-sm leading-7 text-gray-500">
+      Abierta a conectar con profesionales y equipos del sector tecnológico.
+    </p>
   </section>
-
-  <!-- Descripción -->
-  <p class="text-xl text-gray-700 dark:text-gray-300 mb-14 text-center" data-aos="fade-up" data-aos-delay="200">
-    Aquí tienes mis redes profesionales:
-  </p>
-
-  <!-- Redes -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-20">
-    <!-- LinkedIn -->
-    <a
-      href="https://www.linkedin.com/in/estefaniagm89/"
-      target="_blank"
-      class="group bg-gray-200 dark:bg-gray-800 p-8 rounded-2xl shadow-md dark:shadow-purple-900/30
-           hover:shadow-2xl border border-gray-300 dark:border-gray-700
-           transition-all duration-300 transform hover:scale-[1.03]"
-      data-aos="fade-right" data-aos-delay="300"
-    >
-      <div class="flex items-center gap-6">
-        <img
-          src="/img/linkedin.png"
-          alt="LinkedIn"
-          class="w-16 h-16 rounded-full object-cover"
-        />
-        <div class="text-left">
-          <h3
-            class="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition"
-          >
-            LinkedIn
-          </h3>
-          <p class="text-gray-600 dark:text-gray-300 text-base">
-            Conecta conmigo en el mundo profesional.
-          </p>
-        </div>
-      </div>
-    </a>
-
-    <!-- GitHub -->
-    <a
-      href="https://github.com/EstefaniaGM89"
-      target="_blank"
-      class="group bg-gray-200 dark:bg-gray-800 p-8 rounded-2xl shadow-md dark:shadow-purple-900/30
-           hover:shadow-2xl border border-gray-300 dark:border-gray-700
-           transition-all duration-300 transform hover:scale-[1.03]"
-      data-aos="fade-left" data-aos-delay="400"
-    >
-      <div class="flex items-center gap-6">
-        <img
-          src="/img/github.jpg"
-          alt="GitHub"
-          class="w-16 h-16 rounded-full object-cover"
-        />
-        <div class="text-left">
-          <h3
-            class="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition"
-          >
-            GitHub
-          </h3>
-          <p class="text-gray-600 dark:text-gray-300 text-base">
-            Mira mis proyectos y contribuciones.
-          </p>
-        </div>
-      </div>
-    </a>
-  </div>
 </Layout>
-
-<!-- Script JS externo -->
-<script src="/js/main.js" defer></script>

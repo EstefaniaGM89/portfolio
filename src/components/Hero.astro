@@ -1,0 +1,194 @@
+---
+import Robot3D from "./Robot3D.astro";
+
+const linkedin = "https://www.linkedin.com/in/estefaniagm89/";
+const github = "https://github.com/EstefaniaGM89";
+---
+
+<section
+    id="inicio"
+    class="relative isolate flex min-h-[85vh] items-center overflow-hidden px-6 py-20 lg:px-12"
+>
+    <!-- ==========================================
+       ILUMINACIÓN AMBIENTAL
+  ========================================== -->
+
+    <div
+        class="pointer-events-none absolute right-0 top-1/4 -z-10 h-[450px] w-[450px] rounded-full bg-purple-600/10 blur-[110px]"
+        aria-hidden="true"
+    >
+    </div>
+
+    <div
+        class="mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-2"
+    >
+        <!-- ==========================================
+         PRESENTACIÓN PERSONAL
+    ========================================== -->
+
+        <div class="animate-fade-up relative z-10">
+            <!-- DISPONIBILIDAD -->
+            <div
+                class="mb-8 inline-flex items-center gap-3 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2"
+            >
+                <span class="relative flex h-2.5 w-2.5">
+                    <span
+                        class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-50"
+                    ></span>
+
+                    <span
+                        class="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-400"
+                    ></span>
+                </span>
+
+                <span class="text-xs font-medium tracking-wide text-purple-200">
+                    Disponible para nuevas oportunidades
+                </span>
+            </div>
+
+            <!-- SALUDO -->
+            <p class="mb-4 font-mono text-sm tracking-[0.25em] text-purple-400">
+                HOLA, SOY ESTEFANÍA
+            </p>
+
+            <!-- TÍTULO PRINCIPAL -->
+            <h1
+                class="mb-6 text-5xl font-bold leading-[1.1] tracking-tight text-white sm:text-6xl xl:text-7xl"
+            >
+                Construyo
+                <span class="gradient-text block"> experiencias </span>
+                digitales.
+            </h1>
+
+            <!-- PERFIL PROFESIONAL -->
+            <p class="mb-4 text-lg font-medium text-purple-300">
+                Web Developer · Frontend & Full Stack
+            </p>
+
+            <!-- DESCRIPCIÓN -->
+            <p class="max-w-xl text-base leading-8 text-gray-400 sm:text-lg">
+                Desarrolladora web con experiencia en proyectos digitales
+                reales, interfaces responsive y aplicaciones web. Combino
+                tecnología, creatividad y atención al detalle para crear
+                soluciones funcionales, accesibles y atractivas.
+            </p>
+
+            <!-- ==========================================
+           BOTONES DE ACCIÓN
+      ========================================== -->
+
+            <div class="mt-10 flex flex-wrap items-center gap-4">
+                <a href="/proyectos" class="btn-primary">
+                    Explorar proyectos
+                    <span aria-hidden="true">↗</span>
+                </a>
+
+                <a
+                    href="/contacto"
+                    class="inline-flex items-center justify-center rounded-xl border border-white/15 px-7 py-3.5 font-semibold text-gray-200 transition hover:border-purple-400/50 hover:bg-white/5"
+                >
+                    Contactar
+                </a>
+            </div>
+
+            <!-- ==========================================
+           REDES PROFESIONALES
+      ========================================== -->
+
+            <div
+                class="mt-12 flex flex-wrap items-center gap-6 border-t border-white/10 pt-6"
+            >
+                <a
+                    href={github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-sm text-gray-400 transition hover:text-purple-300"
+                >
+                    GitHub ↗
+                </a>
+
+                <a
+                    href={linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-sm text-gray-400 transition hover:text-purple-300"
+                >
+                    LinkedIn ↗
+                </a>
+
+                <span class="text-xs text-gray-600"> Barcelona, España </span>
+            </div>
+        </div>
+
+        <!-- ==========================================
+         ESCENARIO DEL ROBOT 3D
+    ========================================== -->
+
+        <div
+            class="relative flex min-h-[380px] items-center justify-center sm:min-h-[500px]"
+        >
+            <!-- CÍRCULO EXTERIOR -->
+            <div
+                class="pointer-events-none absolute h-[290px] w-[290px] rounded-full border border-purple-500/15 sm:h-[400px] sm:w-[400px]"
+                aria-hidden="true"
+            >
+            </div>
+
+            <!-- CÍRCULO INTERIOR -->
+            <div
+                class="pointer-events-none absolute h-[220px] w-[220px] rounded-full border border-purple-400/10 sm:h-[310px] sm:w-[310px]"
+                aria-hidden="true"
+            >
+            </div>
+
+            <!-- RESPLANDOR VIOLETA -->
+            <div
+                class="pointer-events-none absolute h-[260px] w-[260px] rounded-full bg-purple-600/15 blur-[90px]"
+                aria-hidden="true"
+            >
+            </div>
+
+            <!-- ==========================================
+           ROBOT 3D INTERACTIVO
+      ========================================== -->
+
+            <div
+                id="robot-container"
+                class="relative z-10 flex h-[360px] w-full max-w-[520px] items-center justify-center sm:h-[480px]"
+            >
+                <Robot3D />
+            </div>
+
+            <!-- INDICACIÓN DEL ASISTENTE VIRTUAL -->
+<div
+    id="robot-hint"
+    class="pointer-events-none absolute bottom-8 right-4 z-20
+           flex flex-col items-end gap-3"
+>
+    <div class="flex items-center gap-2 font-mono text-xs text-purple-300">
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+        >
+            <path d="M9 9l5 12 1.8-5.2L21 14 9 9Z" />
+            <path d="M5 5l2 2M12 2v3M2 12h3" />
+        </svg>
+
+        <span>¡Haz clic en el robot!</span>
+    </div>
+
+    <!-- Línea violeta decorativa -->
+    <div class="h-px w-28 bg-purple-400/80"></div>
+</div>
+
+        </div>
+    </div>
+</section>

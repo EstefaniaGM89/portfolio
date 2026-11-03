@@ -1,0 +1,821 @@
+<div
+  id="robot-3d"
+  class="relative h-full w-full"
+  role="button"
+  tabindex="0"
+  aria-controls="robot-chat"
+  aria-expanded="false"
+  aria-label="Abrir asistente virtual del portfolio"
+>
+  <canvas
+    id="robot-canvas"
+    class="h-full w-full cursor-pointer"
+    aria-hidden="true"
+  ></canvas>
+</div>
+
+<!-- Chat integrado: fuera del contenedor 3D para no activar el saludo al escribir -->
+<aside id="robot-chat" class="robot-chat" aria-label="Asistente del portfolio" hidden>
+  <div class="robot-chat__header">
+    <div class="robot-chat__identity">
+      <span class="robot-chat__avatar" aria-hidden="true">✦</span>
+      <div><strong>Asistente de Estefanía</strong><small>Guía interactiva del portfolio</small></div>
+    </div>
+    <button id="robot-chat-close" class="robot-chat__close" type="button" aria-label="Cerrar chat">×</button>
+  </div>
+  <div id="robot-chat-messages" class="robot-chat__messages" role="log" aria-live="polite" aria-relevant="additions">
+    <p class="robot-chat__message robot-chat__message--bot">¡Hola! 👋 Soy el asistente del portfolio de Estefanía. Puedo contarte su experiencia, tecnologías y proyectos. ¿Qué te interesa?</p>
+  </div>
+  <div class="robot-chat__suggestions" aria-label="Preguntas sugeridas">
+    <button type="button" data-robot-question="experiencia">Experiencia</button>
+    <button type="button" data-robot-question="tecnologias">Tecnologías</button>
+    <button type="button" data-robot-question="proyectos">Proyectos</button>
+    <button type="button" data-robot-question="contacto">Contacto</button>
+  </div>
+  <form id="robot-chat-form" class="robot-chat__form">
+    <label class="sr-only" for="robot-chat-input">Escribe tu pregunta</label>
+    <input id="robot-chat-input" type="text" placeholder="Pregunta sobre el portfolio..." maxlength="240" autocomplete="off" />
+    <button type="submit" aria-label="Enviar mensaje">Enviar</button>
+  </form>
+  <p class="robot-chat__note">Asistente con respuestas predefinidas, sin IA generativa.</p>
+</aside>
+
+<script>
+  // El chat no utiliza servicios externos ni almacena conversaciones.
+  const chat = document.querySelector<HTMLElement>("#robot-chat");
+  const robotTrigger = document.querySelector<HTMLElement>("#robot-3d");
+  const chatClose = document.querySelector<HTMLButtonElement>("#robot-chat-close");
+  const chatForm = document.querySelector<HTMLFormElement>("#robot-chat-form");
+  const chatInput = document.querySelector<HTMLInputElement>("#robot-chat-input");
+  const messages = document.querySelector<HTMLElement>("#robot-chat-messages");
+    const robotHint = document.querySelector<HTMLElement>("#robot-hint");
+
+  if (chat && robotTrigger && chatClose && chatForm && chatInput && messages) {
+    const setOpen = (open: boolean) => {
+  // Mostrar u ocultar el asistente
+  chat.hidden = !open;
+
+  // Actualizar el estado accesible del robot
+  robotTrigger.setAttribute("aria-expanded", String(open));
+
+  // Ocultar la indicación cuando el chat está abierto
+  if (robotHint) {
+    robotHint.hidden = open;
+  }
+
+  // Gestionar el foco
+  if (open) {
+    chatInput.focus();
+  } else {
+    robotTrigger.focus();
+  }
+};
+
+    const replies: Record<string, string> = {
+  experiencia: "Estefanía ha trabajado como técnica especialista de soporte en desarrollo web en el Ajuntament de Mataró, participando en el desarrollo, mantenimiento y actualización de páginas institucionales con HTML, CSS, Bootstrap y Plone, prestando especial atención al diseño responsive y la accesibilidad.",
+
+  tecnologias: "Trabaja con HTML, CSS, JavaScript, TypeScript, React, Astro, Tailwind CSS, PHP, Laravel, MySQL, PostgreSQL, Git y Docker, entre otras tecnologías. Puedes ver ejemplos de su trabajo en la sección de Proyectos.",
+
+  proyectos: "Entre sus trabajos destacan diversos proyectos institucionales del Ajuntament de Mataró, como Mataró Circular 2030, Capital de l'Economia Social y Mataró 5 Estrelles. También ha participado en el desarrollo de JustType AI Keyboard, una aplicación iOS con inteligencia artificial, y ha creado proyectos propios como MediTrack, una aplicación de gestión de pacientes y tratamientos. Descubre todos sus trabajos en la sección de Proyectos.",
+
+  formacion: "Es titulada en Desarrollo de Aplicaciones Web y actualmente cursa el Grado de Ingeniería Informática en la UOC. Complementa su formación con conocimientos en desarrollo frontend, backend, DevOps y nuevas tecnologías. Puedes consultar su trayectoria académica en la sección de Formación.",
+
+  contacto: "Puedes contactar con Estefanía a través de LinkedIn: linkedin.com/in/estefaniagm89/ o explorar sus proyectos y repositorios en GitHub: github.com/EstefaniaGM89. También encontrarás ambos enlaces en la sección de Contacto.",
+
+  saludo: "¡Hola! 👋 Soy el asistente virtual del portfolio de Estefanía. Estoy aquí para ayudarte a conocer su experiencia profesional, tecnologías, proyectos y formación. ¿Qué te gustaría saber?",
+
+  desconocido: "Todavía no tengo una respuesta preparada para esa pregunta. Pero puedo contarte sobre la experiencia profesional de Estefanía, las tecnologías que utiliza, sus proyectos, su formación o cómo contactar con ella."
+};
+
+    const classify = (value: string) => {
+      const text = value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      if (/hola|buenas|hey|saludos/.test(text)) return "saludo";
+      if (/contact|linkedin|github|correo|email|escribir/.test(text)) return "contacto";
+      if (/estudi|formacion|titulo|grado|universidad|uoc|certific/.test(text)) return "formacion";
+      if (/proyect|trabajo|portfolio|mataro|laravel|meditrack/.test(text)) return "proyectos";
+      if (/tecnolog|lenguaje|stack|framework|program|herramient/.test(text)) return "tecnologias";
+      if (/experien|empleo|laboral|empresa|perfil|quien/.test(text)) return "experiencia";
+      return "desconocido";
+    };
+
+    const addMessage = (value: string, who: "bot" | "user") => {
+      const item = document.createElement("p");
+      item.className = `robot-chat__message robot-chat__message--${who}`;
+      item.textContent = value; // Sin innerHTML: texto seguro
+      messages.appendChild(item);
+      messages.scrollTop = messages.scrollHeight;
+    };
+
+    const ask = (question: string, category?: string) => {
+      const clean = question.trim();
+      if (!clean) return;
+      addMessage(clean, "user");
+      addMessage(replies[category || classify(clean)] || replies.desconocido, "bot");
+      chatInput.value = "";
+    };
+
+    robotTrigger.addEventListener("robot:toggle-chat", () => setOpen(chat.hasAttribute("hidden")));
+    chatClose.addEventListener("click", () => setOpen(false));
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !chat.hidden) setOpen(false);
+    });
+    chatForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      ask(chatInput.value);
+    });
+    chat.querySelectorAll<HTMLButtonElement>("[data-robot-question]").forEach((button) => {
+      button.addEventListener("click", () => ask(button.textContent || "", button.dataset.robotQuestion));
+    });
+  }
+</script>
+
+<script>
+  import * as THREE from "three";
+
+  const container = document.querySelector<HTMLElement>("#robot-3d");
+  const canvas = document.querySelector<HTMLCanvasElement>("#robot-canvas");
+
+  if (container && canvas) {
+    // ==========================================
+    // 1. ESCENA, CÁMARA Y RENDERIZADOR
+    // ==========================================
+
+    const scene = new THREE.Scene();
+
+    const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
+    camera.position.set(0, 0.2, 8.5);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      alpha: true,
+      antialias: true,
+      powerPreference: "high-performance",
+    });
+
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.3;
+
+    // ==========================================
+    // 2. MATERIALES
+    // ==========================================
+
+    const ceramic = new THREE.MeshPhysicalMaterial({
+      color: 0xf2efff,
+      metalness: 0.08,
+      roughness: 0.22,
+      clearcoat: 1,
+      clearcoatRoughness: 0.12,
+    });
+
+    const ceramicShadow = new THREE.MeshStandardMaterial({
+      color: 0xc5bddc,
+      metalness: 0.18,
+      roughness: 0.35,
+    });
+
+    const faceMaterial = new THREE.MeshPhysicalMaterial({
+      color: 0x100b1c,
+      metalness: 0.15,
+      roughness: 0.12,
+      clearcoat: 1,
+      clearcoatRoughness: 0.05,
+    });
+
+    const violet = new THREE.MeshStandardMaterial({
+      color: 0xa78bfa,
+      emissive: 0x7540df,
+      emissiveIntensity: 1.2,
+      roughness: 0.25,
+    });
+
+    const eyeMaterial = new THREE.MeshBasicMaterial({
+      color: 0xd9c7ff,
+      toneMapped: false,
+    });
+
+    const darkMetal = new THREE.MeshStandardMaterial({
+      color: 0x343044,
+      metalness: 0.6,
+      roughness: 0.3,
+    });
+
+    const cheekMaterial = new THREE.MeshBasicMaterial({
+      color: 0xff8fd8,
+      transparent: true,
+      opacity: 0,
+      depthWrite: false,
+      toneMapped: false,
+    });
+
+    // ==========================================
+    // 3. FUNCIONES DE GEOMETRÍA
+    // ==========================================
+
+    function roundedBox(
+      width: number,
+      height: number,
+      depth: number,
+      radius: number,
+      material: THREE.Material
+    ) {
+      const shape = new THREE.Shape();
+      const x = -width / 2;
+      const y = -height / 2;
+
+      shape.moveTo(x + radius, y);
+      shape.lineTo(x + width - radius, y);
+
+      shape.quadraticCurveTo(
+        x + width, y,
+        x + width, y + radius
+      );
+
+      shape.lineTo(x + width, y + height - radius);
+
+      shape.quadraticCurveTo(
+        x + width, y + height,
+        x + width - radius, y + height
+      );
+
+      shape.lineTo(x + radius, y + height);
+
+      shape.quadraticCurveTo(
+        x, y + height,
+        x, y + height - radius
+      );
+
+      shape.lineTo(x, y + radius);
+      shape.quadraticCurveTo(x, y, x + radius, y);
+
+      const geometry = new THREE.ExtrudeGeometry(shape, {
+        depth: Math.max(0.01, depth - radius * 2),
+        bevelEnabled: true,
+        bevelThickness: radius,
+        bevelSize: radius * 0.5,
+        bevelSegments: 6,
+        curveSegments: 12,
+        steps: 1,
+      });
+
+      geometry.center();
+      geometry.computeVertexNormals();
+
+      return new THREE.Mesh(geometry, material);
+    }
+
+    function sphere(
+      radius: number,
+      material: THREE.Material,
+      x: number,
+      y: number,
+      z: number
+    ) {
+      const mesh = new THREE.Mesh(
+        new THREE.SphereGeometry(radius, 32, 24),
+        material
+      );
+
+      mesh.position.set(x, y, z);
+      return mesh;
+    }
+
+    // ==========================================
+    // 4. ROBOT Y CUERPO
+    // ==========================================
+
+    const robot = new THREE.Group();
+    scene.add(robot);
+
+    const torso = new THREE.Group();
+    robot.add(torso);
+
+    const body = sphere(0.73, ceramic, 0, -0.65, 0);
+    body.scale.set(1, 1.13, 0.8);
+    torso.add(body);
+
+    const neck = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.22, 0.25, 0.3, 32),
+      darkMetal
+    );
+    neck.position.y = 0.03;
+    torso.add(neck);
+
+    const chestPanel = roundedBox(
+      0.65, 0.38, 0.12, 0.12, faceMaterial
+    );
+    chestPanel.position.set(0, -0.62, 0.58);
+    torso.add(chestPanel);
+
+    const chestLight = roundedBox(
+      0.38, 0.075, 0.04, 0.025, violet
+    );
+    chestLight.position.set(0, -0.62, 0.69);
+    torso.add(chestLight);
+
+    // ==========================================
+    // 5. CABEZA Y PANTALLA
+    // ==========================================
+
+    const head = new THREE.Group();
+    head.position.y = 0.65;
+    robot.add(head);
+
+    const headShell = roundedBox(
+      2.15, 1.65, 1.05, 0.3, ceramic
+    );
+    head.add(headShell);
+
+    const faceFrame = roundedBox(
+      1.87, 1.37, 0.04, 0.25, ceramicShadow
+    );
+    faceFrame.position.z = 0.49;
+    head.add(faceFrame);
+
+    const face = roundedBox(
+      1.78, 1.28, 0.13, 0.24, faceMaterial
+    );
+    face.position.z = 0.56;
+    head.add(face);
+
+    // ==========================================
+    // 6. REFLEJO VIOLETA SIN RECTÁNGULO
+    // ==========================================
+
+    const glowCanvas = document.createElement("canvas");
+    glowCanvas.width = 256;
+    glowCanvas.height = 256;
+
+    const ctx = glowCanvas.getContext("2d");
+
+    if (ctx) {
+      const gradient = ctx.createRadialGradient(
+        128, 128, 0,
+        128, 128, 128
+      );
+
+      gradient.addColorStop(0, "rgba(190,145,255,0.48)");
+      gradient.addColorStop(0.25, "rgba(160,110,255,0.22)");
+      gradient.addColorStop(0.55, "rgba(139,92,246,0.07)");
+      gradient.addColorStop(1, "rgba(139,92,246,0)");
+
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, 256, 256);
+    }
+
+    const glowTexture = new THREE.CanvasTexture(glowCanvas);
+
+    const glowMaterial = new THREE.SpriteMaterial({
+      map: glowTexture,
+      transparent: true,
+      opacity: 0.6,
+      depthWrite: false,
+      depthTest: false,
+      blending: THREE.AdditiveBlending,
+    });
+
+    const reflectionGlow = new THREE.Sprite(glowMaterial);
+    reflectionGlow.position.set(-0.25, 0.18, 0.94);
+    reflectionGlow.scale.set(0.75, 0.75, 1);
+    reflectionGlow.renderOrder = 1;
+    head.add(reflectionGlow);
+
+    // ==========================================
+    // 7. OJOS QUE SIGUEN EL CURSOR
+    // ==========================================
+
+    const eyes: THREE.Mesh[] = [];
+    const eyeGroups: THREE.Group[] = [];
+
+    for (const x of [-0.4, 0.4]) {
+      const eyeGroup = new THREE.Group();
+      eyeGroup.position.set(x, 0.1, 1.02);
+
+      const eye = sphere(
+        0.19,
+        eyeMaterial,
+        0,
+        0,
+        0
+      );
+
+      eye.scale.set(0.9, 1.2, 0.3);
+
+      eyeGroup.add(eye);
+      head.add(eyeGroup);
+
+      eyes.push(eye);
+      eyeGroups.push(eyeGroup);
+    }
+
+    // ==========================================
+    // 8. SONRISA
+    // ==========================================
+
+    const smileCurve = new THREE.QuadraticBezierCurve3(
+      new THREE.Vector3(-0.34, -0.26, 1.02),
+      new THREE.Vector3(0, -0.48, 1.04),
+      new THREE.Vector3(0.34, -0.26, 1.02)
+    );
+
+    const smile = new THREE.Mesh(
+      new THREE.TubeGeometry(
+        smileCurve, 32, 0.035, 8, false
+      ),
+      violet
+    );
+
+    head.add(smile);
+
+    // ==========================================
+    // 9. MEJILLAS LUMINOSAS
+    // ==========================================
+
+    const cheeks: THREE.Mesh[] = [];
+
+    for (const x of [-0.67, 0.67]) {
+      const cheek = sphere(
+        0.115,
+        cheekMaterial,
+        x,
+        -0.22,
+        1.04
+      );
+
+      cheek.scale.set(1.2, 0.5, 0.15);
+      cheek.visible = false;
+
+      head.add(cheek);
+      cheeks.push(cheek);
+    }
+
+    // ==========================================
+    // 10. ANTENA
+    // ==========================================
+
+    const antennaBase = new THREE.Mesh(
+      new THREE.CylinderGeometry(
+        0.075, 0.095, 0.32, 20
+      ),
+      ceramicShadow
+    );
+
+    antennaBase.position.y = 0.98;
+    head.add(antennaBase);
+
+    const antennaOrb = sphere(
+      0.13, violet, 0, 1.2, 0
+    );
+    head.add(antennaOrb);
+
+    // ==========================================
+    // 11. SENSORES LATERALES
+    // ==========================================
+
+    for (const side of [-1, 1]) {
+      const sensor = sphere(
+        0.2, darkMetal, side * 1.12, 0, 0
+      );
+
+      sensor.scale.set(0.45, 1, 1);
+      head.add(sensor);
+
+      const sensorLight = sphere(
+        0.12, violet, side * 1.2, 0, 0
+      );
+
+      sensorLight.scale.set(0.3, 1, 1);
+      head.add(sensorLight);
+    }
+
+    // ==========================================
+    // 12. BRAZOS
+    // ==========================================
+
+    const arms: THREE.Group[] = [];
+
+    for (const side of [-1, 1]) {
+      const armGroup = new THREE.Group();
+      armGroup.position.set(side * 0.75, -0.33, 0);
+
+      const shoulder = sphere(
+        0.19, darkMetal, 0, 0, 0
+      );
+      armGroup.add(shoulder);
+
+      const arm = sphere(
+        0.25, ceramic, side * 0.08, -0.34, 0
+      );
+      arm.scale.set(0.75, 1.5, 0.85);
+      armGroup.add(arm);
+
+      const hand = sphere(
+        0.19, ceramic, side * 0.08, -0.72, 0.03
+      );
+      hand.scale.set(1, 0.9, 0.8);
+      armGroup.add(hand);
+
+      torso.add(armGroup);
+      arms.push(armGroup);
+    }
+
+    // ==========================================
+    // 13. PIERNAS Y PIES
+    // ==========================================
+
+    for (const side of [-1, 1]) {
+      const leg = sphere(
+        0.22,
+        ceramicShadow,
+        side * 0.34,
+        -1.38,
+        0
+      );
+      leg.scale.set(0.8, 1, 0.8);
+      torso.add(leg);
+
+      const foot = sphere(
+        0.3,
+        ceramic,
+        side * 0.34,
+        -1.58,
+        0.2
+      );
+      foot.scale.set(1, 0.55, 1.35);
+      torso.add(foot);
+    }
+
+    // ==========================================
+    // 14. ILUMINACIÓN
+    // ==========================================
+
+    scene.add(new THREE.AmbientLight(0xffffff, 1.8));
+
+    const keyLight = new THREE.DirectionalLight(
+      0xffffff, 3.5
+    );
+    keyLight.position.set(3, 5, 6);
+    scene.add(keyLight);
+
+    const fillLight = new THREE.PointLight(
+      0xa78bfa, 35, 12
+    );
+    fillLight.position.set(-3, 2, 3);
+    scene.add(fillLight);
+
+    const rimLight = new THREE.PointLight(
+      0x7c3aed, 25, 10
+    );
+    rimLight.position.set(2, 2, -3);
+    scene.add(rimLight);
+
+    // ==========================================
+    // 15. INTERACCIÓN
+    // ==========================================
+
+    const mouse = new THREE.Vector2();
+    const clock = new THREE.Clock();
+
+    let greetingStart = -10;
+    let animationId = 0;
+    let isVisible = !document.hidden;
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    const onMouseMove = (event: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+
+      if (!rect.width || !rect.height) return;
+
+      mouse.x = THREE.MathUtils.clamp(
+        ((event.clientX - rect.left) / rect.width) * 2 - 1,
+        -1,
+        1
+      );
+
+      mouse.y = THREE.MathUtils.clamp(
+        -((event.clientY - rect.top) / rect.height) * 2 + 1,
+        -1,
+        1
+      );
+    };
+
+    const onMouseLeave = () => {
+      mouse.set(0, 0);
+    };
+
+    const onClick = () => {
+      greetingStart = clock.getElapsedTime();
+      container.dispatchEvent(new CustomEvent("robot:toggle-chat", { bubbles: true }));
+    };
+
+    container.addEventListener("mousemove", onMouseMove);
+    container.addEventListener("mouseleave", onMouseLeave);
+    container.addEventListener("click", onClick);
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        onClick();
+      }
+    };
+    container.addEventListener("keydown", onKeyDown);
+
+    // ==========================================
+    // 16. RESPONSIVE
+    // ==========================================
+
+    const resize = () => {
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+
+      if (!width || !height) return;
+
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height, false);
+    };
+
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(container);
+    resize();
+
+    // ==========================================
+    // 17. ANIMACIÓN PRINCIPAL
+    // ==========================================
+
+    const animate = () => {
+      animationId = requestAnimationFrame(animate);
+
+      if (!isVisible) return;
+
+      const time = clock.getElapsedTime();
+      const elapsed = time - greetingStart;
+
+      const greetingActive =
+        elapsed >= 0 && elapsed < 1.4;
+
+      // Reflejo que sigue el cursor
+      reflectionGlow.position.x +=
+        (mouse.x * 0.42 - reflectionGlow.position.x) * 0.06;
+
+      reflectionGlow.position.y +=
+        (mouse.y * 0.25 - reflectionGlow.position.y) * 0.06;
+
+      if (!reducedMotion) {
+        // Flotación
+        robot.position.y =
+          Math.sin(time * 1.4) * 0.12;
+
+        // Cuerpo
+        robot.rotation.y +=
+          (mouse.x * 0.16 - robot.rotation.y) * 0.04;
+
+        // Cabeza
+        head.rotation.y +=
+          (mouse.x * 0.3 - head.rotation.y) * 0.06;
+
+        head.rotation.x +=
+          (-mouse.y * 0.15 - head.rotation.x) * 0.06;
+
+        // Ojos independientes
+        eyeGroups.forEach((eyeGroup, index) => {
+          const baseX = index === 0 ? -0.4 : 0.4;
+
+          eyeGroup.position.x +=
+            (baseX + mouse.x * 0.075 - eyeGroup.position.x) * 0.08;
+
+          eyeGroup.position.y +=
+            (0.1 + mouse.y * 0.055 - eyeGroup.position.y) * 0.08;
+        });
+
+        // Parpadeo
+        const blink =
+          Math.sin(time * 0.9) > 0.997 ? 0.08 : 1;
+
+        eyes.forEach((eye) => {
+          eye.scale.y +=
+            (blink * 1.2 - eye.scale.y) * 0.35;
+        });
+
+        // Brazos
+        arms[0].rotation.z =
+          Math.sin(time * 1.7) * 0.1;
+
+        arms[1].rotation.z =
+          -Math.sin(time * 1.7) * 0.1;
+
+        // Saludo
+        if (greetingActive) {
+          robot.position.y +=
+            Math.sin((elapsed / 1.4) * Math.PI) * 0.25;
+
+          // Brazo derecho levantado
+          arms[1].rotation.z =
+            -1.65 + Math.sin(elapsed * 15) * 0.18;
+
+          // Inclinación simpática
+          head.rotation.z =
+            Math.sin((elapsed / 1.4) * Math.PI) * 0.12;
+        } else {
+          head.rotation.z *= 0.9;
+        }
+      }
+
+      // ======================================
+      // MEJILLAS: APARECER Y DESAPARECER
+      // ======================================
+
+      let targetOpacity = 0;
+
+      if (greetingActive) {
+        const fadeIn = Math.min(1, elapsed / 0.2);
+        const fadeOut = Math.min(1, (1.4 - elapsed) / 0.4);
+
+        targetOpacity =
+          Math.max(0, Math.min(fadeIn, fadeOut)) * 0.8;
+      }
+
+      cheekMaterial.opacity +=
+        (targetOpacity - cheekMaterial.opacity) * 0.15;
+
+      const cheeksVisible = cheekMaterial.opacity > 0.01;
+
+      cheeks.forEach((cheek) => {
+        cheek.visible = cheeksVisible;
+      });
+
+      renderer.render(scene, camera);
+    };
+
+    const onVisibilityChange = () => {
+      isVisible = !document.hidden;
+    };
+
+    document.addEventListener(
+      "visibilitychange",
+      onVisibilityChange
+    );
+
+    animate();
+
+    // ==========================================
+    // 18. LIMPIEZA DE RECURSOS
+    // ==========================================
+
+    window.addEventListener(
+      "pagehide",
+      () => {
+        cancelAnimationFrame(animationId);
+        resizeObserver.disconnect();
+
+        document.removeEventListener(
+          "visibilitychange",
+          onVisibilityChange
+        );
+
+        container.removeEventListener(
+          "mousemove",
+          onMouseMove
+        );
+
+        container.removeEventListener(
+          "mouseleave",
+          onMouseLeave
+        );
+
+        container.removeEventListener(
+          "click",
+          onClick
+        );
+        container.removeEventListener("keydown", onKeyDown);
+
+        scene.traverse((object) => {
+          if (object instanceof THREE.Mesh) {
+            object.geometry.dispose();
+          }
+        });
+
+        [
+          ceramic,
+          ceramicShadow,
+          faceMaterial,
+          violet,
+          eyeMaterial,
+          darkMetal,
+          cheekMaterial,
+          glowMaterial,
+        ].forEach((material) => material.dispose());
+
+        glowTexture.dispose();
+        renderer.dispose();
+      },
+      { once: true }
+    );
+  }
+</script>
+
+

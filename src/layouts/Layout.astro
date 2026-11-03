@@ -1,74 +1,71 @@
+
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Estefanía García | Web Developer",
+  description = "Portfolio de Estefanía García. Desarrollo web, aplicaciones, proyectos y experiencias digitales.",
+} = Astro.props;
+
+const siteUrl = "https://estefaniagm-portfolio.vercel.app";
+const canonical = new URL(Astro.url.pathname, siteUrl).toString();
 ---
 
-<html lang="es" class="invisible">
+<!doctype html>
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Estefanía | Portfolio</title>
-    <link rel="icon" href="/gamer.ico" type="image/x-icon" />
+    <meta name="theme-color" content="#09090f" />
+    <meta name="description" content={description} />
 
-    <!-- META para compartir -->
-    <meta
-      property="og:title"
-      content="Estefanía Portfolio | Full Stack Junior Developer"
-    />
-    <meta
-      property="og:description"
-      content="Soy Full Stack Junior Developer especializada en desarrollo web y marketing digital."
-    />
+    <link rel="icon" href="/gamer.ico" type="image/x-icon" />
+    <link rel="canonical" href={canonical} />
+
+    <title>{title}</title>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
     <meta
       property="og:image"
-      content="https://estefaniagm-portfolio.vercel.app/img/chibi.png"
-    />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://estefaniagm-portfolio.vercel.app"
+      content={`${siteUrl}/img/chibi.png`}
     />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Estefanía | Portfolio" />
-    <meta
-      name="twitter:description"
-      content="Full Stack Junior Developer con pasión por la tecnología y el aprendizaje constante."
-    />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
     <meta
       name="twitter:image"
-      content="https://estefaniagm-portfolio.vercel.app/img/chibi.png"
+      content={`${siteUrl}/img/chibi.png`}
     />
-
-    <!-- Preinicializa el tema sin parpadeo -->
-    <script is:inline>
-      (() => {
-        const theme = localStorage.getItem("theme");
-        const prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)",
-        ).matches;
-        const isDark = theme === "dark" || (!theme && prefersDark);
-        document.documentElement.classList.toggle("dark", isDark);
-        document.documentElement.classList.remove("invisible");
-      })();
-    </script>
-
-    <link rel="stylesheet" href="/src/styles/global.css" />
   </head>
 
-  <body
-    class="font-sans bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300"
-  >
-    <Header />
-    <main class="min-h-screen px-4 md:px-12 py-6 max-w-5xl mx-auto">
-      <slot />
-    </main>
-    <Footer />
+  <body class="min-h-screen overflow-x-hidden antialiased">
+    <div class="site-background" aria-hidden="true"></div>
 
-    <script src="/js/main.js" defer></script>
-    <script type="module">
-      import { initAOS } from "/src/scripts/aos-init.js";
+    <div class="relative z-10 flex min-h-screen flex-col">
+      <Header />
+
+      <main id="main-content" class="w-full flex-1">
+        <slot />
+      </main>
+
+      <Footer />
+    </div>
+
+    <script>
+      import { initAOS } from "../scripts/aos-init.js";
       initAOS();
     </script>
   </body>
 </html>
+

@@ -1,101 +1,470 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+const experience = [
+  {
+    category: "EXPERIENCIA PROFESIONAL",
+    title: "Ajuntament de Mataró",
+    subtitle: "Técnico especialista de soporte en desarrollo web",
+    period: "2025 — 2026",
+    description:
+      "Desarrollo, maquetación y mantenimiento de webs institucionales con HTML, CSS, JavaScript, Bootstrap y Plone, con especial atención al diseño responsive, la accesibilidad y la experiencia de usuario.",
+    icon: "💻",
+  },
+  {
+    category: "PRÁCTICAS INTERNACIONALES · INTERNSHIP",
+    title: "JustType AI Keyboard",
+    subtitle: "t14 Consulting · iOS Development & Digital Marketing",
+    period: "2025",
+    description:
+      "Prácticas profesionales internacionales en t14 Consulting, colaborando en JustType AI Keyboard mediante Swift, Xcode, localización y marketing digital.",
+    icon: "🌍",
+  },
+  {
+    category: "FORMACIÓN ACTUAL",
+    title: "Ingeniería Informática",
+    subtitle: "Universitat Oberta de Catalunya",
+    period: "2026 — Actualidad",
+    description:
+      "Ampliando mis conocimientos de informática, arquitectura de computadores, desarrollo de software y fundamentos de ingeniería.",
+    icon: "🎓",
+  },
+  {
+    category: "ESPECIALIZACIÓN EN CURSO",
+    title: "DevOps y Cloud",
+    subtitle: "Udemy · Decoding DevOps – From Basics to Advanced Projects with AI",
+    period: "2026 — En curso",
+    description:
+      "Formación práctica orientada a contenedores, integración y despliegue continuo (CI/CD), automatización e infraestructura cloud. Actualmente ampliando conocimientos en Docker, Jenkins, Terraform y servicios cloud.",
+    icon: "☁️",
+  },
+  {
+    category: "FORMACIÓN TÉCNICA",
+    title: "Desarrollo de Aplicaciones Web",
+    subtitle: "Ciclo Formativo de Grado Superior",
+    period: "Finalizado en 2025",
+    description:
+      "Formación especializada en desarrollo frontend y backend, bases de datos, programación, diseño de interfaces y despliegue de aplicaciones.",
+    icon: "🚀",
+  },
+];
+
+const softSkills = [
+  "Aprendizaje continuo",
+  "Resolución de problemas",
+  "Creatividad",
+  "Trabajo en equipo",
+  "Autonomía",
+  "Adaptabilidad",
+  "Atención al detalle",
+  "Pensamiento analítico",
+  "Comunicación",
+  "Constancia",
+];
+
+const technicalAreas = [
+  {
+    title: "Frontend",
+    description: "Interfaces modernas, responsive y accesibles.",
+    technologies: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Astro", "Tailwind CSS"],
+    icon: "✦",
+  },
+  {
+    title: "Backend",
+    description: "Aplicaciones, lógica de negocio y APIs.",
+    technologies: ["PHP", "Laravel", "Java", "Node.js", "NestJS", "REST APIs"],
+    icon: "{ }",
+  },
+  {
+    title: "Herramientas y CMS",
+    description: "Desarrollo, colaboración y gestión web.",
+    technologies: ["Git", "GitHub", "Docker", "Plone", "WordPress", "Figma"],
+    icon: "⚙",
+  },
+  {
+    title: "DevOps y Cloud · En formación",
+    description: "Aprendiendo automatización, CI/CD, contenedores e infraestructura como código mediante prácticas guiadas.",
+    technologies: ["Docker", "CI/CD", "Jenkins", "Terraform", "AWS", "Azure"],
+    icon: "☁",
+  },
+];
 ---
 
 <Layout>
-  <section class="pt-20 pb-10 px-6 max-w-6xl mx-auto">
-    <!-- Título decorado -->
-    <div class="text-center mb-12">
-      <h2
-        class="text-4xl font-bold text-gray-900 dark:text-white relative inline-block after:block after:h-1 after:w-30 after:bg-purple-600 after:mx-auto after:mt-2"
+  <!-- ==========================================
+       PRESENTACIÓN
+  =========================================== -->
+  <section
+    id="sobre-mi"
+    class="relative isolate mx-auto max-w-7xl px-4 pb-20 pt-20 sm:px-6 lg:pt-28"
+    aria-labelledby="about-title"
+  >
+    <!-- Iluminación ambiental -->
+    <div
+      class="pointer-events-none absolute right-0 top-24 -z-10 h-[400px] w-[400px] max-w-full rounded-full bg-purple-600/10 blur-[110px]"
+      aria-hidden="true"
+    ></div>
+
+    <div class="mb-16 text-center" data-aos="fade-up">
+      <p class="mb-4 font-mono text-xs tracking-[0.3em] text-purple-400">
+        ABOUT ME / 01
+      </p>
+
+      <h1
+        id="about-title"
+        class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
       >
-        Sobre mí
-      </h2>
+        Un poco <span class="gradient-text">sobre mí.</span>
+      </h1>
+
+      <p class="mx-auto mt-6 max-w-2xl text-base leading-8 text-gray-400">
+        Desarrollo web, experiencia profesional y aprendizaje continuo en DevOps y Cloud.
+      </p>
     </div>
 
-    <!-- Contenido principal -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-      <!-- Columna de texto -->
-      <div class="animate-fade-up duration-1000">
-        <p class="text-lg text-gray-700 dark:text-gray-300">
-          Hola, soy <strong class="text-purple-600">Estefanía García</strong>,
-          Desarrolladora Web <strong class="text-purple-600">Junior</strong> con
-          perfil <strong class="text-purple-600">Full Stack</strong>, formación
-          técnica en desarrollo y experiencia complementaria en Marketing
-          digital. Acabo de finalizar el ciclo superior de <strong
-            class="text-purple-600">Desarrollo de Aplicaciones Web</strong
-          >, y ya he trabajado en proyectos reales tanto a nivel frontend como
-          backend.
-        </p>
+    <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <!-- TEXTO -->
+      <div data-aos="fade-right">
+        <div
+          class="mb-7 inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2"
+        >
+          <span class="h-2 w-2 rounded-full bg-green-400"></span>
+          <span class="text-xs font-medium text-purple-200">
+            Disponible para nuevas oportunidades
+          </span>
+        </div>
 
-        <p class="text-lg text-gray-700 dark:text-gray-300 mt-4">
-          He desarrollado una aplicación completa desde cero (MediTrack) y he
-          colaborado en un proyecto internacional (JustType AI Keyboard),
-          participando en la programación y en el marketing digital. Esto me ha
-          permitido aportar una visión estratégica centrada en el usuario y en
-          el producto.
-          <br /><br />
-          <strong class="text-purple-600">Mi objetivo</strong> es seguir creciendo
-          como Developer, aportando valor desde la tecnología y la creatividad en
-          proyectos que generen impacto.
-          <br /><br />
-          Actualmente estoy en <strong class="text-purple-600"
-            >búsqueda activa</strong
-          > de una oportunidad profesional donde seguir aprendiendo y contribuir
-          en un equipo dinámico y apasionado por la tecnología.
-        </p>
+        <h2
+          class="mb-7 text-3xl font-bold leading-tight text-white sm:text-4xl"
+        >
+          Más que código,
+          <span class="gradient-text">creo experiencias.</span>
+        </h2>
 
-        <p class="text-lg text-gray-700 dark:text-gray-300 mt-4">
-          He trabajado con diversas <strong class="text-purple-600"
-            >tecnologías</strong
-          > que puedes consultar clicando en el botón púrpura con mi nombre😉.
-        </p>
+        <div class="space-y-5 text-base leading-8 text-gray-400">
+          <p>
+            ¡Hola! Soy
+            <strong class="font-semibold text-purple-300">
+              Estefanía García
+            </strong>,
+            desarrolladora web con perfil
+            <strong class="font-semibold text-white">
+              Frontend & Full Stack
+            </strong>
+            y experiencia profesional en proyectos digitales reales.
+          </p>
+
+          <p>
+            He trabajado como técnica especialista de soporte en
+            desarrollo web en el
+            <strong class="font-semibold text-purple-300">
+              Ajuntament de Mataró
+            </strong>,
+            participando en la creación y mantenimiento de páginas
+            institucionales, con especial atención a la
+            accesibilidad, la maquetación responsive y la experiencia
+            de usuario.
+          </p>
+
+          <p>
+            También he colaborado en el desarrollo de
+            <strong class="font-semibold text-white">
+              JustType AI Keyboard
+            </strong>
+            y he creado proyectos propios como
+            <strong class="font-semibold text-white">
+              MediTrack
+            </strong>,
+            una aplicación web para la gestión de pacientes y
+            tratamientos.
+          </p>
+
+          <p>
+            Soy titulada en Desarrollo de Aplicaciones Web y
+            actualmente curso
+            <strong class="font-semibold text-purple-300">
+              Ingeniería Informática en la UOC
+            </strong>.
+            Actualmente también estoy ampliando mi perfil hacia
+            <strong class="font-semibold text-white">DevOps y Cloud</strong>,
+            mediante formación práctica en Docker, CI/CD, Jenkins,
+            Terraform y tecnologías de infraestructura cloud.
+          </p>
+
+          <p>
+            Busco seguir creciendo en desarrollo web y abrirme camino
+            hacia oportunidades DevOps Junior, combinando mi experiencia
+            en programación con nuevos conocimientos de automatización
+            y despliegue de aplicaciones.
+          </p>
+        </div>
+
+        <div class="mt-9 flex flex-wrap gap-4">
+          <a href="/proyectos" class="btn-primary">
+            Ver mis proyectos
+            <span aria-hidden="true">↗</span>
+          </a>
+
+          <a
+            href="/contacto"
+            class="inline-flex items-center justify-center rounded-xl border border-white/15 px-7 py-3.5 font-semibold text-gray-200 transition duration-300 hover:border-purple-400/50 hover:bg-white/5"
+          >
+            Contactar
+          </a>
+        </div>
       </div>
 
-      <!-- Columna de imagen -->
-      <div class="flex justify-center md:items-start mt-8">
-        <img
-          src="/img/sobre-mi-ilustracion-anime.png"
-          alt="Ilustración anime de Estefanía programando"
-          class="rounded-2xl shadow-2xl max-w-sm md:max-w-md w-full opacity-0 animate-slide-up-aligned"
-        />
+      <!-- ILUSTRACIÓN -->
+      <div
+        class="relative mx-auto w-full max-w-[460px]"
+        data-aos="fade-left"
+      >
+        <div
+          class="pointer-events-none absolute -inset-6 rounded-full bg-purple-600/15 blur-[80px]"
+          aria-hidden="true"
+        ></div>
+
+        <div class="glass-card relative overflow-hidden p-3 sm:p-4">
+          <div
+            class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-purple-500/10 to-transparent"
+            aria-hidden="true"
+          ></div>
+
+          <img
+            src="/img/sobre-mi-ilustracion-anime.png"
+            alt="Ilustración de Estefanía programando"
+            class="relative h-auto w-full rounded-2xl object-contain"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
+        <!-- Tarjeta flotante -->
+        <div
+          class="absolute -bottom-6 left-3 right-3 rounded-2xl border border-purple-400/20 bg-[#181524]/95 p-4 shadow-[0_15px_45px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:-left-6 sm:right-auto sm:max-w-[280px]"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-purple-500/15 text-xl"
+              aria-hidden="true"
+            >
+              💜
+            </div>
+
+            <div>
+              <p class="text-sm font-semibold text-white">
+                Web Developer
+              </p>
+              <p class="mt-1 text-xs text-gray-400">
+                Frontend · Full Stack · DevOps en formación
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SECCIÓN DE SOFT SKILLS (con menos espacio) -->
-  <section class="py-16 px-6 bg-white dark:bg-gray-900">
-    <div class="flex flex-col items-center text-center">
-      <a
-        class="inline-block mb-6 px-5 py-2.5 bg-purple-400 hover:bg-purple-700
-        dark:bg-purple-700 dark:hover:bg-purple-500 text-black dark:text-white
-        font-semibold rounded-full shadow-md transition duration-300 text-sm"
-      >
-        Soft Skills
-      </a>
+  <!-- ==========================================
+       EXPERIENCIA Y FORMACIÓN
+  =========================================== -->
+  <section
+    class="mx-auto max-w-7xl px-4 py-24 sm:px-6"
+    aria-labelledby="journey-title"
+  >
+    <div class="mb-14 text-center" data-aos="fade-up">
+      <p class="mb-4 font-mono text-xs tracking-[0.3em] text-purple-400">
+        MY JOURNEY / 02
+      </p>
 
-      <div class="flex flex-wrap gap-3 justify-center max-w-4xl">
-        <span class="bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 px-4 py-1 rounded-full text-sm">Autodidacta</span>
-        <span class="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 px-4 py-1 rounded-full text-sm">Constancia</span>
-        <span class="bg-pink-100 text-pink-400 dark:bg-pink-500 dark:text-pink-200 px-4 py-1 rounded-full text-sm">Versatilidad</span>
-        <span class="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 px-4 py-1 rounded-full text-sm">Creatividad</span>
-        <span class="bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 px-4 py-1 rounded-full text-sm">Comunicación</span>
-        <span class="bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 px-4 py-1 rounded-full text-sm">Aprendizaje contínuo</span>
-        <span class="bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200 px-4 py-1 rounded-full text-sm">Marketing digital</span>
-        <span class="bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 px-4 py-1 rounded-full text-sm">Desarrollo Web</span>
-        <span class="bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-200 px-4 py-1 rounded-full text-sm">Empatía</span>
-        <span class="bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200 px-4 py-1 rounded-full text-sm">Creación de contenido</span>
-        <span class="bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 px-4 py-1 rounded-full text-sm">Backend</span>
-        <span class="bg-blue-50 text-blue-900 dark:bg-blue-800 dark:text-blue-100 px-4 py-1 rounded-full text-sm">Frontend</span>
-        <span class="bg-pink-50 text-pink-900 dark:bg-pink-800 dark:text-pink-100 px-4 py-1 rounded-full text-sm">SEO</span>
-        <span class="bg-blue-200 text-blue-900 dark:bg-blue-900 dark:text-blue-100 px-4 py-1 rounded-full text-sm">Redes sociales</span>
-        <span class="bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200 px-4 py-1 rounded-full text-sm">UX/UI</span>
-        <span class="bg-lime-100 text-lime-800 dark:bg-lime-900 dark:text-lime-200 px-4 py-1 rounded-full text-sm">Resolución de problemas</span>
-        <span class="bg-fuchsia-100 text-fuchsia-800 dark:bg-fuchsia-900 dark:text-fuchsia-200 px-4 py-1 rounded-full text-sm">Trabajo en equipo</span>
-        <span class="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 px-4 py-1 rounded-full text-sm">Resiliencia</span>
+      <h2
+        id="journey-title"
+        class="text-3xl font-bold text-white sm:text-4xl"
+      >
+        Mi <span class="gradient-text">trayectoria.</span>
+      </h2>
+
+      <p class="mx-auto mt-5 max-w-xl text-gray-400">
+        Experiencia profesional, proyectos reales y formación continua.
+      </p>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2">
+      {experience.map((item, index) => (
+        <article
+          class="glass-card group relative p-6 sm:p-8"
+          data-aos="fade-up"
+          data-aos-delay={Math.min(index * 100, 300)}
+        >
+          <div class="mb-6 flex items-start justify-between gap-4">
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-2xl border border-purple-400/20 bg-purple-500/10 text-2xl"
+              aria-hidden="true"
+            >
+              {item.icon}
+            </div>
+
+            <span
+              class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-400"
+            >
+              {item.period}
+            </span>
+          </div>
+
+          <p class="mb-3 font-mono text-xs tracking-[0.15em] text-purple-400">
+            {item.category}
+          </p>
+
+          <h3
+            class="mb-2 text-xl font-bold text-white transition-colors group-hover:text-purple-300"
+          >
+            {item.title}
+          </h3>
+
+          <p class="mb-5 text-sm font-medium text-purple-200">
+            {item.subtitle}
+          </p>
+
+          <p class="text-sm leading-7 text-gray-400">
+            {item.description}
+          </p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- ==========================================
+       ÁREAS TÉCNICAS
+  =========================================== -->
+  <section
+    class="mx-auto max-w-7xl px-4 py-24 sm:px-6"
+    aria-labelledby="technical-title"
+  >
+    <div class="mb-14 text-center" data-aos="fade-up">
+      <p class="mb-4 font-mono text-xs tracking-[0.3em] text-purple-400">
+        WHAT I DO / 03
+      </p>
+
+      <h2
+        id="technical-title"
+        class="text-3xl font-bold text-white sm:text-4xl"
+      >
+        Mis áreas de <span class="gradient-text">desarrollo.</span>
+      </h2>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      {technicalAreas.map((area, index) => (
+        <article
+          class="glass-card p-6 sm:p-7"
+          data-aos="fade-up"
+          data-aos-delay={index * 100}
+        >
+          <div
+            class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-purple-500/10 font-mono text-xl font-bold text-purple-300"
+            aria-hidden="true"
+          >
+            {area.icon}
+          </div>
+
+          <h3 class="mb-3 text-xl font-bold text-white">
+            {area.title}
+          </h3>
+
+          <p class="mb-6 min-h-[48px] text-sm leading-6 text-gray-400">
+            {area.description}
+          </p>
+
+          <div class="flex flex-wrap gap-2">
+            {area.technologies.map((tech) => (
+              <span
+                class="rounded-lg border border-purple-400/15 bg-purple-500/10 px-3 py-1.5 text-xs font-medium text-purple-200"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SOFT SKILLS
+  =========================================== -->
+  <section
+    class="mx-auto max-w-7xl px-4 pb-28 pt-20 sm:px-6"
+    aria-labelledby="skills-title"
+  >
+    <div class="glass-card px-5 py-14 sm:px-10 sm:py-16">
+      <div class="mb-12 text-center" data-aos="fade-up">
+        <p class="mb-4 font-mono text-xs tracking-[0.3em] text-purple-400">
+          BEYOND CODE / 04
+        </p>
+
+        <h2
+          id="skills-title"
+          class="text-3xl font-bold text-white sm:text-4xl"
+        >
+          Lo que <span class="gradient-text">me define.</span>
+        </h2>
+
+        <p class="mx-auto mt-5 max-w-2xl leading-7 text-gray-400">
+          Porque desarrollar software no consiste únicamente en
+          escribir código: también implica analizar, colaborar,
+          aprender y encontrar soluciones.
+        </p>
+      </div>
+
+      <div
+        class="mx-auto flex max-w-4xl flex-wrap justify-center gap-3"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        {softSkills.map((skill) => (
+          <span
+            class="rounded-full border border-purple-400/20 bg-purple-500/10 px-5 py-2.5 text-sm font-medium text-purple-200 transition-all duration-300 hover:-translate-y-1 hover:border-purple-400/60 hover:bg-purple-500/20 hover:shadow-[0_0_20px_rgba(139,92,246,0.15)]"
+          >
+            {skill}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       LLAMADA A LA ACCIÓN
+  =========================================== -->
+  <section class="mx-auto max-w-7xl px-4 pb-24 sm:px-6">
+    <div
+      class="relative overflow-hidden rounded-3xl border border-purple-400/20 bg-[#171124] px-6 py-14 text-center sm:px-12"
+      data-aos="fade-up"
+    >
+      <div
+        class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.15),transparent_65%)]"
+        aria-hidden="true"
+      ></div>
+
+      <div class="relative z-10">
+        <p class="mb-4 font-mono text-xs tracking-[0.2em] text-purple-300">
+          LET'S BUILD SOMETHING
+        </p>
+
+        <h2 class="mb-5 text-3xl font-bold text-white sm:text-4xl">
+          ¿Creamos algo juntos?
+        </h2>
+
+        <p class="mx-auto mb-8 max-w-xl leading-7 text-gray-400">
+          Estoy abierta a oportunidades en desarrollo web y DevOps Junior,
+          donde pueda aportar experiencia técnica, seguir aprendiendo
+          y colaborar en proyectos con impacto real.
+        </p>
+
+        <a href="/contacto" class="btn-primary">
+          Hablemos
+          <span aria-hidden="true">↗</span>
+        </a>
       </div>
     </div>
   </section>
 </Layout>
-
-<script src="/js/main.js" defer></script>
