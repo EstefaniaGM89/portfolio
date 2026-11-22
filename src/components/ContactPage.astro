@@ -1,0 +1,88 @@
+---
+import type { Lang } from "../i18n/utils";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "es" } = Astro.props;
+const isEnglish = lang === "en";
+
+const networks = [
+  {
+    name: "LinkedIn",
+    description: isEnglish
+      ? "Connect with me and learn about my professional experience."
+      : "Conecta conmigo y descubre mi experiencia profesional.",
+    image: "/img/linkedin.png",
+    url: "https://www.linkedin.com/in/estefaniagm89/",
+    action: isEnglish ? "Visit LinkedIn" : "Visitar LinkedIn",
+  },
+  {
+    name: "GitHub",
+    description: isEnglish
+      ? "Explore my repositories, projects and code."
+      : "Explora mis repositorios, proyectos y código.",
+    image: "/img/github.jpg",
+    url: "https://github.com/EstefaniaGM89",
+    action: isEnglish ? "Visit GitHub" : "Visitar GitHub",
+  },
+];
+---
+
+<section
+  class="relative isolate mx-auto max-w-6xl px-4 pb-28 pt-20 sm:px-6 lg:px-8 lg:pt-28"
+  aria-labelledby="contact-title"
+>
+  <div
+    class="pointer-events-none absolute right-0 top-0 -z-10 h-[420px] w-[420px] max-w-full rounded-full bg-purple-600/10 blur-[110px]"
+    aria-hidden="true"
+  ></div>
+
+  <header class="mb-14 text-center" data-aos="fade-up">
+    <p class="mb-4 font-mono text-xs tracking-[0.3em] text-purple-400">
+      LET'S CONNECT
+    </p>
+    <h1 id="contact-title" class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+      {isEnglish ? "Let's talk" : "Hablemos"}<span class="gradient-text">.</span>
+    </h1>
+    <p class="mx-auto mt-6 max-w-2xl text-base leading-8 text-gray-400">
+      {isEnglish
+        ? "Interested in my profile or one of my projects? You can find me on my professional networks."
+        : "¿Te interesa mi perfil o alguno de mis proyectos? Puedes encontrarme en mis redes profesionales."}
+    </p>
+  </header>
+
+  <div class="grid items-stretch gap-5 md:grid-cols-2">
+    {networks.map((network) => (
+      <a
+        href={network.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`${network.action} (${isEnglish ? "opens in a new tab" : "se abre en una pestaña nueva"})`}
+        class="glass-card group flex h-full flex-col p-6 sm:p-8"
+      >
+        <div class="flex items-center gap-5">
+          <div class="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-purple-400/20 bg-[#1d172b] p-2">
+            <img src={network.image} alt="" loading="lazy" class="h-full w-full object-contain" />
+          </div>
+          <div class="min-w-0">
+            <h2 class="text-2xl font-bold text-white transition-colors duration-300 group-hover:text-purple-300">
+              {network.name}
+            </h2>
+            <p class="mt-2 text-sm leading-6 text-gray-400">{network.description}</p>
+          </div>
+        </div>
+        <div class="mt-auto flex items-center gap-2 pt-8 text-sm font-semibold text-purple-300 transition-colors duration-300 group-hover:text-purple-200">
+          {network.action}<span aria-hidden="true">↗</span>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <p class="mx-auto mt-12 max-w-xl text-center text-sm leading-7 text-gray-500">
+    {isEnglish
+      ? "Open to connecting with professionals and teams in the tech industry."
+      : "Abierta a conectar con profesionales y equipos del sector tecnológico."}
+  </p>
+</section>

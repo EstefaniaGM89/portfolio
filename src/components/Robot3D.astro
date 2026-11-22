@@ -1,123 +1,107 @@
-<div
-  id="robot-3d"
-  class="relative h-full w-full"
-  role="button"
-  tabindex="0"
-  aria-controls="robot-chat"
-  aria-expanded="false"
-  aria-label="Abrir asistente virtual del portfolio"
->
-  <canvas
-    id="robot-canvas"
-    class="h-full w-full cursor-pointer"
-    aria-hidden="true"
-  ></canvas>
+---
+import type { Lang } from "../i18n/utils";
+interface Props { lang?: Lang; }
+const { lang = "es" } = Astro.props;
+const en = lang === "en";
+---
+<div id="robot-3d" class="relative h-full w-full" role="button" tabindex="0"
+  aria-controls="robot-chat" aria-expanded="false"
+  aria-label={en ? "Open portfolio virtual assistant" : "Abrir asistente virtual del portfolio"}>
+  <canvas id="robot-canvas" class="h-full w-full cursor-pointer" aria-hidden="true"></canvas>
 </div>
 
-<!-- Chat integrado: fuera del contenedor 3D para no activar el saludo al escribir -->
-<aside id="robot-chat" class="robot-chat" aria-label="Asistente del portfolio" hidden>
+<aside id="robot-chat" class="robot-chat" aria-label={en ? "Portfolio assistant" : "Asistente del portfolio"} data-lang={lang} hidden>
   <div class="robot-chat__header">
     <div class="robot-chat__identity">
       <span class="robot-chat__avatar" aria-hidden="true">✦</span>
-      <div><strong>Asistente de Estefanía</strong><small>Guía interactiva del portfolio</small></div>
+      <div><strong>{en ? "Estefanía's assistant" : "Asistente de Estefanía"}</strong><small>{en ? "Interactive portfolio guide" : "Guía interactiva del portfolio"}</small></div>
     </div>
-    <button id="robot-chat-close" class="robot-chat__close" type="button" aria-label="Cerrar chat">×</button>
+    <button id="robot-chat-close" class="robot-chat__close" type="button" aria-label={en ? "Close chat" : "Cerrar chat"}>×</button>
   </div>
   <div id="robot-chat-messages" class="robot-chat__messages" role="log" aria-live="polite" aria-relevant="additions">
-    <p class="robot-chat__message robot-chat__message--bot">¡Hola! 👋 Soy el asistente del portfolio de Estefanía. Puedo contarte su experiencia, tecnologías y proyectos. ¿Qué te interesa?</p>
+    <p class="robot-chat__message robot-chat__message--bot">{en ? "Hi! 👋 I'm Estefanía's portfolio assistant. I can tell you about her experience, technologies and projects. What would you like to know?" : "¡Hola! 👋 Soy el asistente del portfolio de Estefanía. Puedo contarte su experiencia, tecnologías y proyectos. ¿Qué te interesa?"}</p>
   </div>
-  <div class="robot-chat__suggestions" aria-label="Preguntas sugeridas">
-    <button type="button" data-robot-question="experiencia">Experiencia</button>
-    <button type="button" data-robot-question="tecnologias">Tecnologías</button>
-    <button type="button" data-robot-question="proyectos">Proyectos</button>
-    <button type="button" data-robot-question="contacto">Contacto</button>
+  <div class="robot-chat__suggestions" aria-label={en ? "Suggested questions" : "Preguntas sugeridas"}>
+    <button type="button" data-robot-question="experiencia">{en ? "Experience" : "Experiencia"}</button>
+    <button type="button" data-robot-question="tecnologias">{en ? "Technologies" : "Tecnologías"}</button>
+    <button type="button" data-robot-question="proyectos">{en ? "Projects" : "Proyectos"}</button>
+    <button type="button" data-robot-question="contacto">{en ? "Contact" : "Contacto"}</button>
   </div>
   <form id="robot-chat-form" class="robot-chat__form">
-    <label class="sr-only" for="robot-chat-input">Escribe tu pregunta</label>
-    <input id="robot-chat-input" type="text" placeholder="Pregunta sobre el portfolio..." maxlength="240" autocomplete="off" />
-    <button type="submit" aria-label="Enviar mensaje">Enviar</button>
+    <label class="sr-only" for="robot-chat-input">{en ? "Type your question" : "Escribe tu pregunta"}</label>
+    <input id="robot-chat-input" type="text" placeholder={en ? "Ask about the portfolio..." : "Pregunta sobre el portfolio..."} maxlength="240" autocomplete="off" />
+    <button type="submit" aria-label={en ? "Send message" : "Enviar mensaje"}>{en ? "Send" : "Enviar"}</button>
   </form>
-  <p class="robot-chat__note">Asistente con respuestas predefinidas, sin IA generativa.</p>
+  <p class="robot-chat__note">{en ? "Assistant with predefined responses; no generative AI." : "Asistente con respuestas predefinidas, sin IA generativa."}</p>
 </aside>
 
 <script>
-  // El chat no utiliza servicios externos ni almacena conversaciones.
   const chat = document.querySelector<HTMLElement>("#robot-chat");
   const robotTrigger = document.querySelector<HTMLElement>("#robot-3d");
   const chatClose = document.querySelector<HTMLButtonElement>("#robot-chat-close");
   const chatForm = document.querySelector<HTMLFormElement>("#robot-chat-form");
   const chatInput = document.querySelector<HTMLInputElement>("#robot-chat-input");
   const messages = document.querySelector<HTMLElement>("#robot-chat-messages");
-    const robotHint = document.querySelector<HTMLElement>("#robot-hint");
+  const robotHint = document.querySelector<HTMLElement>("#robot-hint");
 
   if (chat && robotTrigger && chatClose && chatForm && chatInput && messages) {
+    const en = chat.dataset.lang === "en";
+    const replies: Record<string, Record<string, string>> = {
+      es: {
+        experiencia: "Estefanía ha trabajado como técnica especialista de soporte en desarrollo web en el Ajuntament de Mataró, participando en el desarrollo, mantenimiento y actualización de páginas institucionales con HTML, CSS, Bootstrap y Plone, prestando especial atención al diseño responsive y la accesibilidad.",
+        tecnologias: "Trabaja con HTML, CSS, JavaScript, TypeScript, React, Astro, Tailwind CSS, PHP, Laravel, MySQL, PostgreSQL, Git y Docker, entre otras tecnologías. Puedes ver ejemplos de su trabajo en la sección de Proyectos.",
+        proyectos: "Entre sus trabajos destacan diversos proyectos institucionales del Ajuntament de Mataró, como Mataró Circular 2030, Capital de l'Economia Social y Mataró 5 Estrelles. También ha participado en el desarrollo de JustType AI Keyboard, una aplicación iOS con inteligencia artificial, y ha creado proyectos propios como MediTrack, una aplicación de gestión de pacientes y tratamientos. Descubre todos sus trabajos en la sección de Proyectos.",
+        formacion: "Es titulada en Desarrollo de Aplicaciones Web y actualmente cursa el Grado de Ingeniería Informática en la UOC. Complementa su formación con conocimientos en desarrollo frontend, backend, DevOps y nuevas tecnologías. Puedes consultar su trayectoria académica en la sección de Formación.",
+        contacto: "Puedes contactar con Estefanía a través de LinkedIn: linkedin.com/in/estefaniagm89/ o explorar sus proyectos y repositorios en GitHub: github.com/EstefaniaGM89. También encontrarás ambos enlaces en la sección de Contacto.",
+        saludo: "¡Hola! 👋 Soy el asistente virtual del portfolio de Estefanía. Estoy aquí para ayudarte a conocer su experiencia profesional, tecnologías, proyectos y formación. ¿Qué te gustaría saber?",
+        desconocido: "Todavía no tengo una respuesta preparada para esa pregunta. Pero puedo contarte sobre la experiencia profesional de Estefanía, las tecnologías que utiliza, sus proyectos, su formación o cómo contactar con ella."
+      },
+      en: {
+        experiencia: "Estefanía worked as a web development support specialist at Ajuntament de Mataró, contributing to the development, maintenance and updating of institutional websites using HTML, CSS, Bootstrap and Plone, with a focus on responsive design and accessibility.",
+        tecnologias: "She works with HTML, CSS, JavaScript, TypeScript, React, Astro, Tailwind CSS, PHP, Laravel, MySQL, PostgreSQL, Git and Docker, among other technologies. You can see examples in the Projects section.",
+        proyectos: "Her work includes institutional projects for Ajuntament de Mataró, such as Mataró Circular 2030, Capital de l'Economia Social and Mataró 5 Estrelles. She also contributed to JustType AI Keyboard, an AI-powered iOS app, and developed personal projects such as MediTrack, an application for managing patients and treatments. Explore her work in the Projects section.",
+        formacion: "She holds a Higher Vocational Diploma in Web Application Development and is currently studying for a Computer Engineering degree at the UOC. She continues learning frontend, backend, DevOps and emerging technologies. Visit the Education section to learn more.",
+        contacto: "You can contact Estefanía on LinkedIn: linkedin.com/in/estefaniagm89/ or explore her projects and repositories on GitHub: github.com/EstefaniaGM89. Both links are also available in the Contact section.",
+        saludo: "Hi! 👋 I'm Estefanía's portfolio assistant. I can help you learn about her professional experience, technologies, projects and education. What would you like to know?",
+        desconocido: "I don't have a prepared answer for that question yet. But I can tell you about Estefanía's experience, technologies, projects, education or how to contact her."
+      }
+    };
     const setOpen = (open: boolean) => {
-  // Mostrar u ocultar el asistente
-  chat.hidden = !open;
-
-  // Actualizar el estado accesible del robot
-  robotTrigger.setAttribute("aria-expanded", String(open));
-
-  // Ocultar la indicación cuando el chat está abierto
-  if (robotHint) {
-    robotHint.hidden = open;
-  }
-
-  // Gestionar el foco
-  if (open) {
-    chatInput.focus();
-  } else {
-    robotTrigger.focus();
-  }
-};
-
-    const replies: Record<string, string> = {
-  experiencia: "Estefanía ha trabajado como técnica especialista de soporte en desarrollo web en el Ajuntament de Mataró, participando en el desarrollo, mantenimiento y actualización de páginas institucionales con HTML, CSS, Bootstrap y Plone, prestando especial atención al diseño responsive y la accesibilidad.",
-
-  tecnologias: "Trabaja con HTML, CSS, JavaScript, TypeScript, React, Astro, Tailwind CSS, PHP, Laravel, MySQL, PostgreSQL, Git y Docker, entre otras tecnologías. Puedes ver ejemplos de su trabajo en la sección de Proyectos.",
-
-  proyectos: "Entre sus trabajos destacan diversos proyectos institucionales del Ajuntament de Mataró, como Mataró Circular 2030, Capital de l'Economia Social y Mataró 5 Estrelles. También ha participado en el desarrollo de JustType AI Keyboard, una aplicación iOS con inteligencia artificial, y ha creado proyectos propios como MediTrack, una aplicación de gestión de pacientes y tratamientos. Descubre todos sus trabajos en la sección de Proyectos.",
-
-  formacion: "Es titulada en Desarrollo de Aplicaciones Web y actualmente cursa el Grado de Ingeniería Informática en la UOC. Complementa su formación con conocimientos en desarrollo frontend, backend, DevOps y nuevas tecnologías. Puedes consultar su trayectoria académica en la sección de Formación.",
-
-  contacto: "Puedes contactar con Estefanía a través de LinkedIn: linkedin.com/in/estefaniagm89/ o explorar sus proyectos y repositorios en GitHub: github.com/EstefaniaGM89. También encontrarás ambos enlaces en la sección de Contacto.",
-
-  saludo: "¡Hola! 👋 Soy el asistente virtual del portfolio de Estefanía. Estoy aquí para ayudarte a conocer su experiencia profesional, tecnologías, proyectos y formación. ¿Qué te gustaría saber?",
-
-  desconocido: "Todavía no tengo una respuesta preparada para esa pregunta. Pero puedo contarte sobre la experiencia profesional de Estefanía, las tecnologías que utiliza, sus proyectos, su formación o cómo contactar con ella."
-};
-
+      chat.hidden = !open;
+      robotTrigger.setAttribute("aria-expanded", String(open));
+      if (robotHint) robotHint.hidden = open;
+      if (open) chatInput.focus();
+      else robotTrigger.focus();
+    };
     const classify = (value: string) => {
       const text = value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      if (/hola|buenas|hey|saludos/.test(text)) return "saludo";
-      if (/contact|linkedin|github|correo|email|escribir/.test(text)) return "contacto";
-      if (/estudi|formacion|titulo|grado|universidad|uoc|certific/.test(text)) return "formacion";
-      if (/proyect|trabajo|portfolio|mataro|laravel|meditrack/.test(text)) return "proyectos";
-      if (/tecnolog|lenguaje|stack|framework|program|herramient/.test(text)) return "tecnologias";
-      if (/experien|empleo|laboral|empresa|perfil|quien/.test(text)) return "experiencia";
+      if (/hola|buenas|hey|saludos|hello|hi\b|greetings/.test(text)) return "saludo";
+      if (/contact|linkedin|github|correo|email|escribir|reach/.test(text)) return "contacto";
+      if (/estudi|formacion|titulo|grado|universidad|uoc|certific|educat|degree|stud|course/.test(text)) return "formacion";
+      if (/proyect|portfolio|mataro|laravel|meditrack|project|work sample/.test(text)) return "proyectos";
+      if (/tecnolog|lenguaje|stack|framework|program|herramient|technolog|language|tool|skill/.test(text)) return "tecnologias";
+      if (/experien|empleo|laboral|empresa|perfil|quien|experience|career|background|about/.test(text)) return "experiencia";
       return "desconocido";
     };
-
     const addMessage = (value: string, who: "bot" | "user") => {
       const item = document.createElement("p");
       item.className = `robot-chat__message robot-chat__message--${who}`;
-      item.textContent = value; // Sin innerHTML: texto seguro
+      item.textContent = value;
       messages.appendChild(item);
       messages.scrollTop = messages.scrollHeight;
     };
-
     const ask = (question: string, category?: string) => {
       const clean = question.trim();
       if (!clean) return;
       addMessage(clean, "user");
-      addMessage(replies[category || classify(clean)] || replies.desconocido, "bot");
+      const responses = replies[en ? "en" : "es"];
+      addMessage(responses[category || classify(clean)] || responses.desconocido, "bot");
       chatInput.value = "";
     };
-
-    robotTrigger.addEventListener("robot:toggle-chat", () => setOpen(chat.hasAttribute("hidden")));
+   robotTrigger.addEventListener("robot:toggle-chat", () => setOpen(chat.hasAttribute("hidden")));
     chatClose.addEventListener("click", () => setOpen(false));
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && !chat.hidden) setOpen(false);
+    if (event.key === "Escape" && !chat.hasAttribute("hidden")) setOpen(false);
     });
     chatForm.addEventListener("submit", (event) => {
       event.preventDefault();

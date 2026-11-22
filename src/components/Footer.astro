@@ -1,7 +1,25 @@
-<footer class="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 py-4 mt-4 border-t dark:border-gray-700">
+
+---
+import type { Lang } from "../i18n/utils";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "es" } = Astro.props;
+
+const footerText =
+  lang === "en"
+    ? "All rights reserved, 💻 and always eager to keep learning."
+    : "Todos los derechos reservados, 💻 y muchas ganas de aprender.";
+---
+
+<footer
+  class="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 py-4 mt-4 border-t dark:border-gray-700"
+>
   <div class="max-w-6xl mx-auto px-4 flex flex-col items-center gap-4 text-center">
-    <p class="text-sm flex items-center gap-4 flex-wrap justify-center"></p>
-      © {new Date().getFullYear()} Estefanía García. Todos los derechos reservados, 💻 y muchas ganas de aprender.
+    <p class="text-sm flex items-center gap-4 flex-wrap justify-center">
+      © {new Date().getFullYear()} Estefanía García. {footerText}
     </p>
   </div>
 </footer>

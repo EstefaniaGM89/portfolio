@@ -1,14 +1,45 @@
 
 ---
+import type { Lang } from "../i18n/utils";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "es" } = Astro.props;
+
+const isEnglish = lang === "en";
+const prefix = isEnglish ? "/en" : "";
+
 const navigation = [
-  { name: "Inicio", href: "/" },
-  { name: "Sobre mí", href: "/sobre-mi" },
-  { name: "Proyectos", href: "/proyectos" },
-  { name: "Formación", href: "/certificaciones" },
-  { name: "Contacto", href: "/contacto" },
-];
+  { name: isEnglish ? "Home" : "Inicio", path: "/" },
+  { name: isEnglish ? "About me" : "Sobre mí", path: "/sobre-mi" },
+  { name: isEnglish ? "Projects" : "Proyectos", path: "/proyectos" },
+  { name: isEnglish ? "Education" : "Formación", path: "/certificaciones" },
+  { name: isEnglish ? "Contact" : "Contacto", path: "/contacto" },
+].map((item) => ({
+  name: item.name,
+  href: item.path === "/" ? (isEnglish ? "/en/" : "/") : `${prefix}${item.path}`,
+}));
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const normalizedPath = currentPath === "/en" ? "/en/" : currentPath;
+
+const pathWithoutLanguage = Astro.url.pathname.replace(/^\/en(?=\/|$)/, "") || "/";
+const spanishUrl = pathWithoutLanguage;
+const englishUrl = `/en${pathWithoutLanguage === "/" ? "/" : pathWithoutLanguage}`;
+
+const availabilityText = isEnglish
+  ? "Open to work"
+  : "Disponible para trabajar";
+
+const navLabel = isEnglish
+  ? "Main navigation"
+  : "Navegación principal";
+
+const mobileNavLabel = isEnglish
+  ? "Mobile navigation"
+  : "Navegación móvil";
 ---
 
 <header
@@ -19,9 +50,9 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
   >
     <!-- LOGOTIPO -->
     <a
-      href="/"
+      href={isEnglish ? "/en/" : "/"}
       class="group relative z-10 flex shrink-0 items-center gap-2"
-      aria-label="Estefanía García - Inicio"
+      aria-label={isEnglish ? "Estefanía García - Home" : "Estefanía García - Inicio"}
     >
       <span
         class="flex h-10 w-10 items-center justify-center rounded-xl
@@ -40,23 +71,27 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
     <!-- NAVEGACIÓN DESKTOP -->
     <nav
       class="hidden items-center gap-4 md:flex lg:gap-7"
-      aria-label="Navegación principal"
+      aria-label={navLabel}
     >
       {
         navigation.map((item) => (
           <a
             href={item.href}
-            aria-current={currentPath === item.href ? "page" : undefined}
+            aria-current={normalizedPath === item.href.replace(/\/$/, "") || (normalizedPath === "/" && item.href === "/") || (normalizedPath === "/en/" && item.href === "/en/") ? "page" : undefined}
             class:list={[
               "relative whitespace-nowrap text-sm font-medium transition-colors duration-300",
-              currentPath === item.href
+              normalizedPath === item.href.replace(/\/$/, "") ||
+              (normalizedPath === "/" && item.href === "/") ||
+              (normalizedPath === "/en/" && item.href === "/en/")
                 ? "text-purple-400"
                 : "text-gray-300 hover:text-white",
             ]}
           >
             {item.name}
 
-            {currentPath === item.href && (
+            {(normalizedPath === item.href.replace(/\/$/, "") ||
+              (normalizedPath === "/" && item.href === "/") ||
+              (normalizedPath === "/en/" && item.href === "/en/")) && (
               <span
                 class="absolute -bottom-2 left-0 h-0.5 w-full rounded-full bg-purple-500"
                 aria-hidden="true"
@@ -67,8 +102,9 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
       }
     </nav>
 
-    <!-- DISPONIBILIDAD Y BOTÓN MÓVIL -->
-    <div class="relative z-10 flex shrink-0 items-center gap-4">
+    <!-- DISPONIBILIDAD, IDIOMAS Y MENÚ -->
+    <div class="relative z-10 flex shrink-0 items-center gap-3">
+
       <a
         href="https://www.linkedin.com/in/estefaniagm89/"
         target="_blank"
@@ -78,20 +114,53 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
                px-4 py-2 text-xs font-medium text-green-400
                transition-colors hover:bg-green-500/20 xl:inline-flex"
       >
-        <span
-          class="h-2 w-2 rounded-full bg-green-400"
-          aria-hidden="true"
-        ></span>
-        Disponible para trabajar
+        <span class="h-2 w-2 rounded-full bg-green-400" aria-hidden="true"></span>
+        {availabilityText}
       </a>
+
+      <!-- SELECTOR DE IDIOMA -->
+      <div
+        class="flex items-center gap-1 rounded-xl border border-purple-500/25 bg-purple-500/10 p-1 text-xs font-semibold"
+        aria-label={isEnglish ? "Select language" : "Seleccionar idioma"}
+      >
+        <a
+          href={spanishUrl}
+          lang="es"
+          aria-current={!isEnglish ? "page" : undefined}
+          class:list={[
+            "rounded-lg px-2.5 py-2 transition-colors",
+            !isEnglish
+              ? "bg-purple-600 text-white"
+              : "text-gray-400 hover:bg-white/10 hover:text-white",
+          ]}
+        >
+          ES
+        </a>
+
+        <a
+          href={englishUrl}
+          lang="en"
+          aria-current={isEnglish ? "page" : undefined}
+          class:list={[
+            "rounded-lg px-2.5 py-2 transition-colors",
+            isEnglish
+              ? "bg-purple-600 text-white"
+              : "text-gray-400 hover:bg-white/10 hover:text-white",
+          ]}
+        >
+          EN
+        </a>
+      </div>
 
       <!-- BOTÓN HAMBURGUESA -->
       <button
         id="mobile-menu-toggle"
         type="button"
-        aria-label="Abrir menú"
+        aria-label={isEnglish ? "Open menu" : "Abrir menú"}
         aria-controls="mobile-menu"
         aria-expanded="false"
+        data-open-label={isEnglish ? "Open menu" : "Abrir menú"}
+        data-close-label={isEnglish ? "Close menu" : "Cerrar menú"}
         class="relative z-20 flex h-11 w-11 shrink-0
                items-center justify-center rounded-xl
                border border-white/15 bg-white/5 text-white
@@ -102,7 +171,6 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
                focus-visible:outline-purple-400
                md:hidden"
       >
-        <!-- ICONO ABRIR -->
         <svg
           id="menu-open-icon"
           xmlns="http://www.w3.org/2000/svg"
@@ -119,7 +187,6 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
           <path d="M4 6h16M4 12h16M4 18h16" />
         </svg>
 
-        <!-- ICONO CERRAR -->
         <svg
           id="menu-close-icon"
           class="hidden"
@@ -146,17 +213,19 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
     class="relative z-10 hidden border-t border-white/10
            bg-[#101018] px-4 py-5 shadow-2xl
            sm:px-6 md:hidden"
-    aria-label="Navegación móvil"
+    aria-label={mobileNavLabel}
   >
     <div class="mx-auto flex max-w-7xl flex-col gap-2">
       {
         navigation.map((item) => (
           <a
             href={item.href}
-            aria-current={currentPath === item.href ? "page" : undefined}
+            aria-current={normalizedPath === item.href.replace(/\/$/, "") || (normalizedPath === "/" && item.href === "/") || (normalizedPath === "/en/" && item.href === "/en/") ? "page" : undefined}
             class:list={[
               "rounded-xl px-4 py-3.5 text-sm font-medium transition-all duration-200",
-              currentPath === item.href
+              normalizedPath === item.href.replace(/\/$/, "") ||
+              (normalizedPath === "/" && item.href === "/") ||
+              (normalizedPath === "/en/" && item.href === "/en/")
                 ? "border border-purple-400/20 bg-purple-500/15 text-purple-300"
                 : "border border-transparent text-gray-300 hover:bg-white/5 hover:text-white",
             ]}
@@ -166,7 +235,6 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
         ))
       }
 
-      <!-- LINKEDIN MÓVIL -->
       <a
         href="https://www.linkedin.com/in/estefaniagm89/"
         target="_blank"
@@ -176,53 +244,30 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
                px-4 py-3 text-sm font-medium text-green-400
                transition-colors hover:bg-green-500/20"
       >
-        <span
-          class="h-2 w-2 rounded-full bg-green-400"
-          aria-hidden="true"
-        ></span>
-        Disponible para trabajar
+        <span class="h-2 w-2 rounded-full bg-green-400" aria-hidden="true"></span>
+        {availabilityText}
       </a>
     </div>
   </nav>
 </header>
 
 <script>
-  /*
-   * Delegación de eventos:
-   * el listener se registra una sola vez en document
-   * y funciona también cuando Astro reemplaza el Header
-   * durante una navegación.
-   */
-
   function setMobileMenuOpen(isOpen: boolean) {
-    const menuButton = document.getElementById(
-      "mobile-menu-toggle"
-    );
-
-    const mobileMenu = document.getElementById(
-      "mobile-menu"
-    );
-
-    const openIcon = document.getElementById(
-      "menu-open-icon"
-    );
-
-    const closeIcon = document.getElementById(
-      "menu-close-icon"
-    );
+    const menuButton = document.getElementById("mobile-menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const openIcon = document.getElementById("menu-open-icon");
+    const closeIcon = document.getElementById("menu-close-icon");
 
     if (!menuButton || !mobileMenu) return;
 
     mobileMenu.classList.toggle("hidden", !isOpen);
-
-    menuButton.setAttribute(
-      "aria-expanded",
-      String(isOpen)
-    );
+    menuButton.setAttribute("aria-expanded", String(isOpen));
 
     menuButton.setAttribute(
       "aria-label",
-      isOpen ? "Cerrar menú" : "Abrir menú"
+      isOpen
+        ? menuButton.dataset.closeLabel || "Cerrar menú"
+        : menuButton.dataset.openLabel || "Abrir menú"
     );
 
     openIcon?.classList.toggle("hidden", isOpen);
@@ -231,76 +276,39 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 
   function handleHeaderClick(event: MouseEvent) {
     const target = event.target;
-
     if (!(target instanceof Element)) return;
 
-    const menuButton = target.closest(
-      "#mobile-menu-toggle"
-    );
+    const menuButton = target.closest("#mobile-menu-toggle");
 
     if (menuButton) {
-      const isOpen =
-        menuButton.getAttribute("aria-expanded") === "true";
-
+      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
       setMobileMenuOpen(!isOpen);
       return;
     }
 
-    const mobileLink = target.closest(
-      "#mobile-menu a"
-    );
-
-    if (mobileLink) {
-      setMobileMenuOpen(false);
-    }
-  }
-
-  function handleHeaderKeydown(event: KeyboardEvent) {
-    if (event.key === "Escape") {
-      setMobileMenuOpen(false);
-    }
-  }
-
-  function handleHeaderResize() {
-    if (window.innerWidth >= 768) {
+    if (target.closest("#mobile-menu a")) {
       setMobileMenuOpen(false);
     }
   }
 
   function initHeader() {
-    /*
-     * Evita duplicar listeners si Astro vuelve
-     * a ejecutar la inicialización.
-     */
     const state = window as Window & {
       __portfolioHeaderInitialized?: boolean;
     };
 
     if (state.__portfolioHeaderInitialized) return;
-
     state.__portfolioHeaderInitialized = true;
 
-    document.addEventListener(
-      "click",
-      handleHeaderClick
-    );
-
-    document.addEventListener(
-      "keydown",
-      handleHeaderKeydown
-    );
-
-    window.addEventListener(
-      "resize",
-      handleHeaderResize
-    );
-
-    document.addEventListener(
-      "astro:after-swap",
-      () => {
-        setMobileMenuOpen(false);
-      }
-    );
+    document.addEventListener("click", handleHeaderClick);
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") setMobileMenuOpen(false);
+    });
+    window.addEventListener("resize", () => {
+      if (window.innerWidth >= 768) setMobileMenuOpen(false);
+    });
+    document.addEventListener("astro:after-swap", () => {
+      setMobileMenuOpen(false);
+    });
   }
 
   initHeader();

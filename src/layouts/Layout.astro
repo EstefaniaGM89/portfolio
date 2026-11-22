@@ -3,15 +3,20 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
+import type { Lang } from "../i18n/utils";
 
 interface Props {
   title?: string;
   description?: string;
+  lang?: Lang;
 }
 
 const {
+  lang = "es",
   title = "Estefanía García | Web Developer",
-  description = "Portfolio de Estefanía García. Desarrollo web, aplicaciones, proyectos y experiencias digitales.",
+  description = lang === "en"
+    ? "Portfolio of Estefanía García. Web development, applications, projects and digital experiences."
+    : "Portfolio de Estefanía García. Desarrollo web, aplicaciones, proyectos y experiencias digitales.",
 } = Astro.props;
 
 const siteUrl = "https://estefaniagm-portfolio.vercel.app";
@@ -19,7 +24,7 @@ const canonical = new URL(Astro.url.pathname, siteUrl).toString();
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -53,7 +58,7 @@ const canonical = new URL(Astro.url.pathname, siteUrl).toString();
     <div class="site-background" aria-hidden="true"></div>
 
     <div class="relative z-10 flex min-h-screen flex-col">
-      <Header />
+      <Header lang={lang} />
 
       <main id="main-content" class="w-full flex-1">
         <slot />
@@ -68,4 +73,3 @@ const canonical = new URL(Astro.url.pathname, siteUrl).toString();
     </script>
   </body>
 </html>
-

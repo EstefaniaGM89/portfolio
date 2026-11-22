@@ -1,0 +1,384 @@
+---
+import type { Lang } from "../i18n/utils";
+
+interface Props { lang?: Lang; }
+const { lang = "es" } = Astro.props;
+const isEnglish = lang === "en";
+
+// ==========================================
+// PROYECTOS
+// ==========================================
+
+const projects = [
+  {
+    title: "Mataró Circular 2030",
+    category: "institucional",
+    categoryLabel: (isEnglish ? 'Public sector web development' : 'Desarrollo institucional'),
+    description:
+      (isEnglish ? 'Municipal website focused on the circular economy and sustainability. Contributed to page layout, responsive design and content management.' : 'Proyecto web municipal sobre economía circular y sostenibilidad. Participación en maquetación, adaptación responsive y gestión de contenidos.'),
+    technologies: ["HTML", "CSS", "JavaScript", "Bootstrap", "Plone"],
+    image: "/img/projects/mataro-circular.png",
+    link: "https://www.mataro.cat/economia-circular",
+  },
+  {
+    title: "JustType AI Keyboard",
+    category: "profesional",
+    categoryLabel: (isEnglish ? 'International internship' : 'Internship internacional'),
+    description:
+      (isEnglish ? 'During my international internship at t14 Consulting, I contributed to developing an iOS application using Swift and Xcode, featuring intelligent autocorrection, translation into over 70 languages and AI integration. I also worked on localization and digital marketing.' : 'Durante mis prácticas profesionales internacionales (internship) en t14 Consulting colaboré en el desarrollo de una aplicación iOS con Swift y Xcode, autocorrección inteligente, traducción a más de 70 idiomas e integración de IA. También participé en localización y marketing digital.'),
+    technologies: [
+      "Swift",
+      "Xcode",
+      "iOS",
+      "IA",
+      "ASO",
+      "Marketing Digital",
+    ],
+    image: "/img/justtype.png",
+    link: "https://apps.apple.com/us/app/justtype-ai-keyboard/id6590604907",
+  },
+  {
+    title: "MediTrack",
+    category: "personal",
+    categoryLabel: (isEnglish ? 'Personal project · Full Stack' : 'Proyecto propio · Full Stack'),
+    description:
+      (isEnglish ? 'Personal full-stack project for managing patients and chronic treatments. I designed and developed the application with Laravel, PHP and MySQL, from the user interface to backend logic and data management.' : 'Proyecto propio Full Stack para la gestión de pacientes y tratamientos crónicos. Diseñé y desarrollé la aplicación con Laravel, PHP y MySQL, desde la interfaz de usuario hasta la lógica backend y la gestión de datos.'),
+    technologies: [
+      "Laravel",
+      "PHP",
+      "MySQL",
+      "Blade",
+      "Tailwind CSS",
+      "Vite",
+    ],
+    image: "/img/meditrack.png",
+    link: "",
+  },
+  {
+    title: "Mataró 5 Estrelles",
+    category: "institucional",
+    categoryLabel: (isEnglish ? 'Public sector web development' : 'Desarrollo institucional'),
+    description:
+      (isEnglish ? 'Web work for a municipal initiative, including page layout and content management.' : 'Trabajo web para una iniciativa municipal, con participación en tareas de maquetación y gestión de contenidos.'),
+    technologies: ["HTML", "CSS", "JavaScript", "Bootstrap", "Plone"],
+    image: "/img/projects/mataro-5-estrelles.png",
+    link: "https://www.mataro.cat/5estrelles",
+  },
+  {
+    title: "Capital de l'Economia Social",
+    category: "institucional",
+    categoryLabel: (isEnglish ? 'Public sector web development' : 'Desarrollo institucional'),
+    description:
+      (isEnglish ? 'Website focused on the social economy, including content presentation and interface adaptation.' : 'Sitio web vinculado a la economía social, con trabajo en presentación de contenidos y adaptación de interfaces.'),
+    technologies: ["HTML", "CSS", "Bootstrap", "Plone"],
+    image: "/img/projects/economia-social.png",
+    link: "https://capitaleconomiasocial.mataro.cat",
+  },
+  {
+    title: "Zona de Baixes Emissions",
+    category: "institucional",
+    categoryLabel: (isEnglish ? 'Public sector web development' : 'Desarrollo institucional'),
+    description:
+      (isEnglish ? 'Informational website about the low-emission zone in Mataró, focusing on content organization and responsive presentation.' : 'Contenido web informativo sobre la Zona de Baixes Emissions de Mataró, con especial atención a la organización y presentación responsive.'),
+    technologies: ["HTML", "CSS", "JavaScript", "Bootstrap", "Plone"],
+    image: "/img/projects/zbe.png",
+    link: "https://www.mataro.cat/zbe",
+  },
+  {
+    title: "Control de Plagues",
+    category: "institucional",
+    categoryLabel: (isEnglish ? 'Public sector web development' : 'Desarrollo institucional'),
+    description:
+      (isEnglish ? 'Municipal information page, including content structuring and visual adaptation.' : 'Página informativa municipal, con trabajo de estructuración y adaptación visual de contenidos.'),
+    technologies: ["HTML", "CSS", "JavaScript", "Bootstrap", "Plone"],
+    image: "/img/projects/plagues.png",
+    link: "https://www.mataro.cat/plagues",
+  },
+  {
+    title: "Motor de Creació Urbana",
+    category: "institucional",
+    categoryLabel: (isEnglish ? 'Public sector web development' : 'Desarrollo institucional'),
+    description:
+      (isEnglish ? 'Municipal website about urban and cultural creation, including page layout and content management.' : 'Espacio web municipal relacionado con la creación urbana y cultural, con tareas de maquetación y gestión de contenidos.'),
+    technologies: ["HTML", "CSS", "JavaScript", "Bootstrap", "Plone"],
+    image: "/img/projects/motor-creacio.png",
+    link: "https://www.mataro.cat/sites/motor-creacio-urbana",
+  },
+];
+
+// ==========================================
+// FILTROS
+// ==========================================
+
+const filters = [
+  { label: (isEnglish ? 'All' : 'Todos'), value: "todos" },
+  { label: (isEnglish ? 'Institutional' : 'Institucionales'), value: "institucional" },
+  { label: (isEnglish ? 'Professional' : 'Profesionales'), value: "profesional" },
+  { label: (isEnglish ? 'Personal' : 'Personales'), value: "personal" },
+];
+---
+
+<>
+  <section
+    class="relative isolate mx-auto max-w-[90rem] px-4 pb-24 pt-20 sm:px-6 lg:px-8 lg:pt-28"
+    aria-labelledby="projects-title"
+  >
+    <!-- ILUMINACIÓN AMBIENTAL -->
+    <div
+      class="pointer-events-none absolute right-0 top-0 -z-10 h-[450px] w-[450px] max-w-full rounded-full bg-purple-600/10 blur-[120px]"
+      aria-hidden="true"
+    ></div>
+
+    <!-- ======================================
+         CABECERA
+    ======================================= -->
+    <div class="mb-14 text-center" data-aos="fade-up">
+      <p
+        class="mb-4 font-mono text-xs tracking-[0.3em] text-purple-400"
+      >
+        SELECTED WORK / 08
+      </p>
+
+      <h1
+        id="projects-title"
+        class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
+      >
+        {isEnglish ? "My" : "Mis"} <span class="gradient-text">{isEnglish ? "projects." : "proyectos."}</span>
+      </h1>
+
+      <p
+        class="mx-auto mt-6 max-w-2xl text-base leading-8 text-gray-400"
+      >
+        {isEnglish
+          ? "A selection of work from my professional experience, international internship and personal projects."
+          : "Una selección de trabajos realizados durante mi experiencia profesional, mis prácticas internacionales y el desarrollo de proyectos propios."}
+      </p>
+    </div>
+
+    <!-- ======================================
+         FILTROS
+    ======================================= -->
+    <div
+      class="mb-12 flex flex-wrap justify-center gap-3"
+      role="group"
+      aria-label={isEnglish ? "Filter projects" : "Filtrar proyectos"}
+    >
+      {filters.map((filter) => (
+        <button
+          type="button"
+          data-filter={filter.value}
+          aria-pressed={
+            filter.value === "todos" ? "true" : "false"
+          }
+          class:list={[
+            "project-filter rounded-full border px-5 py-2.5 text-sm font-medium transition-all duration-300",
+            filter.value === "todos"
+              ? "border-purple-500 bg-purple-600 text-white"
+              : "border-white/10 bg-white/5 text-gray-300 hover:border-purple-400/40 hover:text-white",
+          ]}
+        >
+          {filter.label}
+        </button>
+      ))}
+    </div>
+
+    <!-- ======================================
+         GALERÍA DE PROYECTOS
+    ======================================= -->
+    <div
+  id="projects-grid"
+  class="grid auto-rows-fr items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3"
+>
+      {projects.map((project, index) => (
+        <article
+          class="project-card glass-card group flex h-full flex-col overflow-hidden"
+          data-category={project.category}
+        >
+          <!-- IMAGEN DEL PROYECTO -->
+          <div
+            class="project-image-container relative aspect-[16/9] overflow-hidden bg-[#171124] p-2"
+          >
+            <!-- Fondo de reserva -->
+            <div
+              class="image-fallback absolute inset-0 flex flex-col items-center justify-center gap-3 p-5 text-center"
+              aria-hidden="true"
+            >
+              <span class="text-4xl text-purple-400/60">
+                ◈
+              </span>
+
+              <span
+                class="max-w-[220px] text-sm font-medium text-purple-200/70"
+              >
+                {project.title}
+              </span>
+            </div>
+
+            {project.link ? (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={isEnglish ? `Open ${project.title} in a new tab` : `Abrir ${project.title} en una nueva pestaña`}
+                class="project-image-link relative z-10 block h-full w-full"
+              >
+                <img
+                  src={project.image}
+                  alt={isEnglish ? `Screenshot of ${project.title}` : `Captura del proyecto ${project.title}`}
+                  loading={index < 3 ? "eager" : "lazy"}
+                  decoding="async"
+                  class="project-image h-full w-full object-contain object-center transition-transform duration-500"
+                />
+
+                <div
+                  class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#100c19]/50 via-transparent to-transparent"
+                ></div>
+
+                <!-- Icono al pasar el cursor -->
+                <div
+                  class="pointer-events-none absolute bottom-4 right-4 flex h-10 w-10 translate-y-2 items-center justify-center rounded-full border border-white/20 bg-[#171124]/90 text-lg text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+                  aria-hidden="true"
+                >
+                  ↗
+                </div>
+              </a>
+            ) : (
+              <div class="relative z-10 h-full w-full">
+                <img
+                  src={project.image}
+                  alt={isEnglish ? `Screenshot of ${project.title}` : `Captura del proyecto ${project.title}`}
+                  loading="lazy"
+                  decoding="async"
+                  class="project-image h-full w-full object-contain object-center transition-transform duration-500"
+                />
+              </div>
+            )}
+
+          </div>
+
+          <!-- ==================================
+               INFORMACIÓN DEL PROYECTO
+          =================================== -->
+          <div class="flex flex-1 flex-col p-5">
+            <!-- CATEGORÍA: debajo de la imagen y antes del título -->
+            <div class="mb-3 flex flex-wrap">
+              <span
+                class="inline-flex max-w-full rounded-full border border-purple-400/25 bg-purple-500/10 px-3 py-1.5 text-xs font-medium text-purple-200"
+              >
+                {project.categoryLabel}
+              </span>
+            </div>
+
+            <h2
+              class="mb-3 text-xl font-bold text-white transition-colors duration-300 group-hover:text-purple-300"
+            >
+              {project.title}
+            </h2>
+
+            <p
+              class="mb-4 flex-1 text-sm leading-6 text-gray-400"
+            >
+              {project.description}
+            </p>
+
+            <!-- TECNOLOGÍAS -->
+            <div class="mb-4 flex flex-wrap gap-1.5">
+              {project.technologies.map((tech) => (
+                <span
+                  class="rounded-lg border border-purple-400/15 bg-purple-500/10 px-2.5 py-1.5 text-xs font-medium text-purple-200"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+
+            <!-- ENLACE -->
+            <div class="border-t border-white/10 pt-4">
+              {project.link ? (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 text-sm font-semibold text-purple-300 transition-all duration-300 hover:gap-3 hover:text-purple-200"
+                >
+                  {isEnglish ? "View project" : "Ver proyecto"}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              ) : (
+                <span class="text-sm text-gray-500">
+                  {isEnglish ? "Academic project · Demo not published" : "Proyecto académico · Demo no publicada"}
+                </span>
+              )}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- ======================================
+         NOTA DE AUTORÍA
+    ======================================= -->
+    <p
+      class="mx-auto mt-12 max-w-3xl text-center text-xs leading-6 text-gray-500"
+    >
+      {isEnglish
+        ? "The institutional projects were developed during my professional experience at Ajuntament de Mataró. My contributions included page layout, responsive design, accessibility and web content management in a collaborative working environment."
+        : "Los proyectos institucionales se desarrollaron en el marco de mi experiencia profesional en el Ajuntament de Mataró. Mi participación incluyó tareas de maquetación, adaptación responsive, accesibilidad y gestión de contenidos web, dentro de un entorno de trabajo colaborativo."}
+    </p>
+  </section>
+</>
+
+<!-- ==========================================
+     FILTROS DE PROYECTOS
+=========================================== -->
+<script>
+  function initProjectGallery() {
+    const grid = document.querySelector<HTMLElement>("#projects-grid");
+    if (!grid || grid.dataset.initialized === "true") return;
+    grid.dataset.initialized = "true";
+
+    const filters = Array.from(document.querySelectorAll<HTMLButtonElement>(".project-filter"));
+    const cards = Array.from(grid.querySelectorAll<HTMLElement>(".project-card"));
+
+    function updateGallery(activeFilter: string) {
+      cards.forEach((card) => {
+        card.hidden = activeFilter !== "todos" && card.dataset.category !== activeFilter;
+      });
+
+      filters.forEach((button) => {
+        const active = button.dataset.filter === activeFilter;
+        button.setAttribute("aria-pressed", String(active));
+        button.classList.toggle("bg-purple-600", active);
+        button.classList.toggle("border-purple-500", active);
+        button.classList.toggle("text-white", active);
+        button.classList.toggle("bg-white/5", !active);
+        button.classList.toggle("border-white/10", !active);
+        button.classList.toggle("text-gray-300", !active);
+      });
+    }
+
+    filters.forEach((button) => {
+      button.addEventListener("click", () => {
+        updateGallery(button.dataset.filter ?? "todos");
+      });
+    });
+
+    grid.querySelectorAll<HTMLImageElement>(".project-image").forEach((img) => {
+      const handleImageError = () => {
+        img.classList.add("image-error");
+        img.style.visibility = "hidden";
+      };
+      img.addEventListener("error", handleImageError);
+      if (img.complete && img.naturalWidth === 0) handleImageError();
+    });
+
+    updateGallery("todos");
+  }
+
+  document.addEventListener("astro:page-load", initProjectGallery);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initProjectGallery, { once: true });
+  } else {
+    initProjectGallery();
+  }
+</script>

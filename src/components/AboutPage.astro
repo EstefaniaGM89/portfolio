@@ -1,0 +1,461 @@
+---
+import type { Lang } from "../i18n/utils";
+interface Props { lang?: Lang; }
+const { lang = "es" } = Astro.props;
+const isEnglish = lang === "en";
+const projectsUrl = isEnglish ? "/en/proyectos" : "/proyectos";
+const contactUrl = isEnglish ? "/en/contacto" : "/contacto";
+
+const experience = [
+  {
+    category: (isEnglish ? 'PROFESSIONAL EXPERIENCE' : 'EXPERIENCIA PROFESIONAL'),
+    title: "Ajuntament de Mataró",
+    subtitle: (isEnglish ? 'Web Development Support Specialist' : 'Técnico especialista de soporte en desarrollo web'),
+    period: "2025 — 2026",
+    description:
+      (isEnglish ? 'Development, layout and maintenance of institutional websites using HTML, CSS, JavaScript, Bootstrap and Plone, with a focus on responsive design, accessibility and user experience.' : 'Desarrollo, maquetación y mantenimiento de webs institucionales con HTML, CSS, JavaScript, Bootstrap y Plone, con especial atención al diseño responsive, la accesibilidad y la experiencia de usuario.'),
+    icon: "💻",
+  },
+  {
+    category: (isEnglish ? 'INTERNATIONAL INTERNSHIP' : 'PRÁCTICAS INTERNACIONALES · INTERNSHIP'),
+    title: "JustType AI Keyboard",
+    subtitle: "t14 Consulting · iOS Development & Digital Marketing",
+    period: "2025",
+    description:
+      (isEnglish ? 'International internship at t14 Consulting, contributing to JustType AI Keyboard with Swift, Xcode, localization and digital marketing.' : 'Prácticas profesionales internacionales en t14 Consulting, colaborando en JustType AI Keyboard mediante Swift, Xcode, localización y marketing digital.'),
+    icon: "🌍",
+  },
+  {
+    category: (isEnglish ? 'CURRENT EDUCATION' : 'FORMACIÓN ACTUAL'),
+    title: (isEnglish ? 'Computer Engineering' : 'Ingeniería Informática'),
+    subtitle: "Universitat Oberta de Catalunya",
+    period: (isEnglish ? '2026 — Present' : '2026 — Actualidad'),
+    description:
+      (isEnglish ? 'Expanding my knowledge of computer science, computer architecture, software development and engineering fundamentals.' : 'Ampliando mis conocimientos de informática, arquitectura de computadores, desarrollo de software y fundamentos de ingeniería.'),
+    icon: "🎓",
+  },
+  {
+    category: (isEnglish ? 'ONGOING SPECIALIZATION' : 'ESPECIALIZACIÓN EN CURSO'),
+    title: (isEnglish ? 'DevOps and Cloud' : 'DevOps y Cloud'),
+    subtitle: "Udemy · Decoding DevOps – From Basics to Advanced Projects with AI",
+    period: (isEnglish ? '2026 — Ongoing' : '2026 — En curso'),
+    description:
+      (isEnglish ? 'Hands-on training in containers, continuous integration and delivery (CI/CD), automation and cloud infrastructure. Currently developing my skills in Docker, Jenkins, Terraform and cloud services.' : 'Formación práctica orientada a contenedores, integración y despliegue continuo (CI/CD), automatización e infraestructura cloud. Actualmente ampliando conocimientos en Docker, Jenkins, Terraform y servicios cloud.'),
+    icon: "☁️",
+  },
+  {
+    category: (isEnglish ? 'TECHNICAL EDUCATION' : 'FORMACIÓN TÉCNICA'),
+    title: (isEnglish ? 'Web Application Development' : 'Desarrollo de Aplicaciones Web'),
+    subtitle: (isEnglish ? 'Advanced Vocational Training Diploma' : 'Ciclo Formativo de Grado Superior'),
+    period: (isEnglish ? 'Completed in 2025' : 'Finalizado en 2025'),
+    description:
+      (isEnglish ? 'Specialized training in frontend and backend development, databases, programming, interface design and application deployment.' : 'Formación especializada en desarrollo frontend y backend, bases de datos, programación, diseño de interfaces y despliegue de aplicaciones.'),
+    icon: "🚀",
+  },
+];
+
+const softSkills = [
+  (isEnglish ? 'Continuous learning' : 'Aprendizaje continuo'),
+  (isEnglish ? 'Problem solving' : 'Resolución de problemas'),
+  (isEnglish ? 'Creativity' : 'Creatividad'),
+  (isEnglish ? 'Teamwork' : 'Trabajo en equipo'),
+  (isEnglish ? 'Independence' : 'Autonomía'),
+  (isEnglish ? 'Adaptability' : 'Adaptabilidad'),
+  (isEnglish ? 'Attention to detail' : 'Atención al detalle'),
+  (isEnglish ? 'Analytical thinking' : 'Pensamiento analítico'),
+  (isEnglish ? 'Communication' : 'Comunicación'),
+  (isEnglish ? 'Perseverance' : 'Constancia'),
+];
+
+const technicalAreas = [
+  {
+    title: "Frontend",
+    description: (isEnglish ? 'Modern, responsive and accessible interfaces.' : 'Interfaces modernas, responsive y accesibles.'),
+    technologies: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Astro", "Tailwind CSS"],
+    icon: "✦",
+  },
+  {
+    title: "Backend",
+    description: (isEnglish ? 'Applications, business logic and APIs.' : 'Aplicaciones, lógica de negocio y APIs.'),
+    technologies: ["PHP", "Laravel", "Java", "Node.js", "NestJS", "REST APIs"],
+    icon: "{ }",
+  },
+  {
+    title: (isEnglish ? 'Tools and CMS' : 'Herramientas y CMS'),
+    description: (isEnglish ? 'Development, collaboration and website management.' : 'Desarrollo, colaboración y gestión web.'),
+    technologies: ["Git", "GitHub", "Docker", "Plone", "WordPress", "Figma"],
+    icon: "⚙",
+  },
+  {
+    title: (isEnglish ? 'DevOps and Cloud · In training' : 'DevOps y Cloud · En formación'),
+    description: (isEnglish ? 'Learning automation, CI/CD, containers and infrastructure as code through guided hands-on projects.' : 'Aprendiendo automatización, CI/CD, contenedores e infraestructura como código mediante prácticas guiadas.'),
+    technologies: ["Docker", "CI/CD", "Jenkins", "Terraform", "AWS", "Azure"],
+    icon: "☁",
+  },
+];
+---
+
+<>
+  <!-- ==========================================
+       PRESENTACIÓN
+  =========================================== -->
+  <section
+    id="sobre-mi"
+    class="relative isolate mx-auto max-w-7xl px-4 pb-20 pt-20 sm:px-6 lg:pt-28"
+    aria-labelledby="about-title"
+  >
+    <!-- Iluminación ambiental -->
+    <div
+      class="pointer-events-none absolute right-0 top-24 -z-10 h-[400px] w-[400px] max-w-full rounded-full bg-purple-600/10 blur-[110px]"
+      aria-hidden="true"
+    ></div>
+
+    <div class="mb-16 text-center" data-aos="fade-up">
+      <p class="mb-4 font-mono text-xs tracking-[0.3em] text-purple-400">
+        ABOUT ME / 01
+      </p>
+
+      <h1
+        id="about-title"
+        class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
+      >
+        {isEnglish ? 'A little ' : 'Un poco '}<span class="gradient-text">{isEnglish ? 'about me.' : 'sobre mí.'}</span>
+      </h1>
+
+      <p class="mx-auto mt-6 max-w-2xl text-base leading-8 text-gray-400">
+        {isEnglish ? 'Web development, professional experience and continuous learning in DevOps and Cloud.' : 'Desarrollo web, experiencia profesional y aprendizaje continuo en DevOps y Cloud.'}
+      </p>
+    </div>
+
+    <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <!-- TEXTO -->
+      <div data-aos="fade-right">
+        <div
+          class="mb-7 inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2"
+        >
+          <span class="h-2 w-2 rounded-full bg-green-400"></span>
+          <span class="text-xs font-medium text-purple-200">
+            {isEnglish ? 'Open to new opportunities' : 'Disponible para nuevas oportunidades'}
+          </span>
+        </div>
+
+        <h2
+          class="mb-7 text-3xl font-bold leading-tight text-white sm:text-4xl"
+        >
+          {isEnglish ? 'More than code,' : 'Más que código,'}
+          <span class="gradient-text">{isEnglish ? 'I create experiences.' : 'creo experiencias.'}</span>
+        </h2>
+
+        <div class="space-y-5 text-base leading-8 text-gray-400">
+          <p>
+            {isEnglish ? 'Hi! I’m' : '¡Hola! Soy'}
+            <strong class="font-semibold text-purple-300">
+              Estefanía García
+            </strong>,
+            {isEnglish ? 'a web developer specializing in' : 'desarrolladora web con perfil'}
+            <strong class="font-semibold text-white">
+              Frontend & Full Stack
+            </strong>
+            {isEnglish ? 'with professional experience in real-world digital projects.' : 'y experiencia profesional en proyectos digitales reales.'}
+          </p>
+
+          <p>
+            {isEnglish ? 'I worked as a web development support specialist at' : 'He trabajado como técnica especialista de soporte en\n            desarrollo web en el'}
+            <strong class="font-semibold text-purple-300">
+              Ajuntament de Mataró
+            </strong>,
+            {isEnglish ? 'contributing to the creation and maintenance of institutional websites, with a focus on accessibility, responsive layouts and user experience.' : 'participando en la creación y mantenimiento de páginas\n            institucionales, con especial atención a la\n            accesibilidad, la maquetación responsive y la experiencia\n            de usuario.'}
+          </p>
+
+          <p>
+            {isEnglish ? 'I also contributed to the development of' : 'También he colaborado en el desarrollo de'}
+            <strong class="font-semibold text-white">
+              JustType AI Keyboard
+            </strong>
+            {isEnglish ? 'and created personal projects such as' : 'y he creado proyectos propios como'}
+            <strong class="font-semibold text-white">
+              MediTrack
+            </strong>,
+            {isEnglish ? 'a web application for managing patients and treatments.' : 'una aplicación web para la gestión de pacientes y\n            tratamientos.'}
+          </p>
+
+          <p>
+            {isEnglish ? 'I hold an Advanced Vocational Training Diploma in Web Application Development and I am currently studying' : 'Soy titulada en Desarrollo de Aplicaciones Web y\n            actualmente curso'}
+            <strong class="font-semibold text-purple-300">
+              {isEnglish ? 'Computer Engineering at UOC' : 'Ingeniería Informática en la UOC'}
+            </strong>.
+            {isEnglish ? 'I am also expanding my skills in' : 'Actualmente también estoy ampliando mi perfil hacia'}
+            <strong class="font-semibold text-white">DevOps y Cloud</strong>,
+            {isEnglish ? 'through practical training in Docker, CI/CD, Jenkins, Terraform and cloud infrastructure technologies.' : 'mediante formación práctica en Docker, CI/CD, Jenkins,\n            Terraform y tecnologías de infraestructura cloud.'}
+          </p>
+
+          <p>
+            {isEnglish ? 'I aim to keep growing in web development and pursue junior DevOps opportunities, combining my programming experience with new skills in automation and application deployment.' : 'Busco seguir creciendo en desarrollo web y abrirme camino\n            hacia oportunidades DevOps Junior, combinando mi experiencia\n            en programación con nuevos conocimientos de automatización\n            y despliegue de aplicaciones.'}
+          </p>
+        </div>
+
+        <div class="mt-9 flex flex-wrap gap-4">
+          <a href={projectsUrl} class="btn-primary">
+            {isEnglish ? 'View my projects' : 'Ver mis proyectos'}
+            <span aria-hidden="true">↗</span>
+          </a>
+
+          <a
+            href={contactUrl}
+            class="inline-flex items-center justify-center rounded-xl border border-white/15 px-7 py-3.5 font-semibold text-gray-200 transition duration-300 hover:border-purple-400/50 hover:bg-white/5"
+          >
+            {isEnglish ? 'Get in touch' : 'Contactar'}
+          </a>
+        </div>
+      </div>
+
+      <!-- ILUSTRACIÓN -->
+      <div
+        class="relative mx-auto w-full max-w-[460px]"
+        data-aos="fade-left"
+      >
+        <div
+          class="pointer-events-none absolute -inset-6 rounded-full bg-purple-600/15 blur-[80px]"
+          aria-hidden="true"
+        ></div>
+
+        <div class="glass-card relative overflow-hidden p-3 sm:p-4">
+          <div
+            class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-purple-500/10 to-transparent"
+            aria-hidden="true"
+          ></div>
+
+          <img
+            src="/img/sobre-mi-ilustracion-anime.png"
+            alt={isEnglish ? 'Illustration of Estefanía coding' : 'Ilustración de Estefanía programando'}
+            class="relative h-auto w-full rounded-2xl object-contain"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
+        <!-- Tarjeta flotante -->
+        <div
+          class="absolute -bottom-6 left-3 right-3 rounded-2xl border border-purple-400/20 bg-[#181524]/95 p-4 shadow-[0_15px_45px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:-left-6 sm:right-auto sm:max-w-[280px]"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-purple-500/15 text-xl"
+              aria-hidden="true"
+            >
+              💜
+            </div>
+
+            <div>
+              <p class="text-sm font-semibold text-white">
+                Web Developer
+              </p>
+              <p class="mt-1 text-xs text-gray-400">
+                {isEnglish ? 'Frontend · Full Stack · Learning DevOps' : 'Frontend · Full Stack · DevOps en formación'}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       EXPERIENCIA Y FORMACIÓN
+  =========================================== -->
+  <section
+    class="mx-auto max-w-7xl px-4 py-24 sm:px-6"
+    aria-labelledby="journey-title"
+  >
+    <div class="mb-14 text-center" data-aos="fade-up">
+      <p class="mb-4 font-mono text-xs tracking-[0.3em] text-purple-400">
+        MY JOURNEY / 02
+      </p>
+
+      <h2
+        id="journey-title"
+        class="text-3xl font-bold text-white sm:text-4xl"
+      >
+        {isEnglish ? 'My ' : 'Mi '}<span class="gradient-text">{isEnglish ? 'journey.' : 'trayectoria.'}</span>
+      </h2>
+
+      <p class="mx-auto mt-5 max-w-xl text-gray-400">
+        {isEnglish ? 'Professional experience, real-world projects and ongoing education.' : 'Experiencia profesional, proyectos reales y formación continua.'}
+      </p>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2">
+      {experience.map((item, index) => (
+        <article
+          class="glass-card group relative p-6 sm:p-8"
+          data-aos="fade-up"
+          data-aos-delay={Math.min(index * 100, 300)}
+        >
+          <div class="mb-6 flex items-start justify-between gap-4">
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-2xl border border-purple-400/20 bg-purple-500/10 text-2xl"
+              aria-hidden="true"
+            >
+              {item.icon}
+            </div>
+
+            <span
+              class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-400"
+            >
+              {item.period}
+            </span>
+          </div>
+
+          <p class="mb-3 font-mono text-xs tracking-[0.15em] text-purple-400">
+            {item.category}
+          </p>
+
+          <h3
+            class="mb-2 text-xl font-bold text-white transition-colors group-hover:text-purple-300"
+          >
+            {item.title}
+          </h3>
+
+          <p class="mb-5 text-sm font-medium text-purple-200">
+            {item.subtitle}
+          </p>
+
+          <p class="text-sm leading-7 text-gray-400">
+            {item.description}
+          </p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- ==========================================
+       ÁREAS TÉCNICAS
+  =========================================== -->
+  <section
+    class="mx-auto max-w-7xl px-4 py-24 sm:px-6"
+    aria-labelledby="technical-title"
+  >
+    <div class="mb-14 text-center" data-aos="fade-up">
+      <p class="mb-4 font-mono text-xs tracking-[0.3em] text-purple-400">
+        WHAT I DO / 03
+      </p>
+
+      <h2
+        id="technical-title"
+        class="text-3xl font-bold text-white sm:text-4xl"
+      >
+        {isEnglish ? 'My areas of ' : 'Mis áreas de '}<span class="gradient-text">{isEnglish ? 'expertise.' : 'desarrollo.'}</span>
+      </h2>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      {technicalAreas.map((area, index) => (
+        <article
+          class="glass-card p-6 sm:p-7"
+          data-aos="fade-up"
+          data-aos-delay={index * 100}
+        >
+          <div
+            class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-purple-500/10 font-mono text-xl font-bold text-purple-300"
+            aria-hidden="true"
+          >
+            {area.icon}
+          </div>
+
+          <h3 class="mb-3 text-xl font-bold text-white">
+            {area.title}
+          </h3>
+
+          <p class="mb-6 min-h-[48px] text-sm leading-6 text-gray-400">
+            {area.description}
+          </p>
+
+          <div class="flex flex-wrap gap-2">
+            {area.technologies.map((tech) => (
+              <span
+                class="rounded-lg border border-purple-400/15 bg-purple-500/10 px-3 py-1.5 text-xs font-medium text-purple-200"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SOFT SKILLS
+  =========================================== -->
+  <section
+    class="mx-auto max-w-7xl px-4 pb-28 pt-20 sm:px-6"
+    aria-labelledby="skills-title"
+  >
+    <div class="glass-card px-5 py-14 sm:px-10 sm:py-16">
+      <div class="mb-12 text-center" data-aos="fade-up">
+        <p class="mb-4 font-mono text-xs tracking-[0.3em] text-purple-400">
+          BEYOND CODE / 04
+        </p>
+
+        <h2
+          id="skills-title"
+          class="text-3xl font-bold text-white sm:text-4xl"
+        >
+          {isEnglish ? 'What ' : 'Lo que '}<span class="gradient-text">{isEnglish ? 'defines me.' : 'me define.'}</span>
+        </h2>
+
+        <p class="mx-auto mt-5 max-w-2xl leading-7 text-gray-400">
+          {isEnglish ? 'Because software development is not just about writing code: it also involves analyzing, collaborating, learning and finding solutions.' : 'Porque desarrollar software no consiste únicamente en\n          escribir código: también implica analizar, colaborar,\n          aprender y encontrar soluciones.'}
+        </p>
+      </div>
+
+      <div
+        class="mx-auto flex max-w-4xl flex-wrap justify-center gap-3"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        {softSkills.map((skill) => (
+          <span
+            class="rounded-full border border-purple-400/20 bg-purple-500/10 px-5 py-2.5 text-sm font-medium text-purple-200 transition-all duration-300 hover:-translate-y-1 hover:border-purple-400/60 hover:bg-purple-500/20 hover:shadow-[0_0_20px_rgba(139,92,246,0.15)]"
+          >
+            {skill}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       LLAMADA A LA ACCIÓN
+  =========================================== -->
+  <section class="mx-auto max-w-7xl px-4 pb-24 sm:px-6">
+    <div
+      class="relative overflow-hidden rounded-3xl border border-purple-400/20 bg-[#171124] px-6 py-14 text-center sm:px-12"
+      data-aos="fade-up"
+    >
+      <div
+        class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.15),transparent_65%)]"
+        aria-hidden="true"
+      ></div>
+
+      <div class="relative z-10">
+        <p class="mb-4 font-mono text-xs tracking-[0.2em] text-purple-300">
+          LET'S BUILD SOMETHING
+        </p>
+
+        <h2 class="mb-5 text-3xl font-bold text-white sm:text-4xl">
+          {isEnglish ? 'Shall we build something together?' : '¿Creamos algo juntos?'}
+        </h2>
+
+        <p class="mx-auto mb-8 max-w-xl leading-7 text-gray-400">
+          {isEnglish ? 'I am open to opportunities in web development and junior DevOps, where I can contribute technical experience, keep learning and collaborate on projects with real impact.' : 'Estoy abierta a oportunidades en desarrollo web y DevOps Junior,\n          donde pueda aportar experiencia técnica, seguir aprendiendo\n          y colaborar en proyectos con impacto real.'}
+        </p>
+
+        <a href={contactUrl} class="btn-primary">
+          {isEnglish ? 'Let’s talk' : 'Hablemos'}
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</>
