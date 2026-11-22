@@ -12,7 +12,6 @@ export const ui = {
     "skills.description": "Tecnologías y herramientas con las que trabajo",
 
     // PROYECTOS
-    "projects.eyebrow": "SELECTED WORK / 03",
     "projects.title": "Proyectos que",
     "projects.titleHighlight": "cobran vida.",
     "projects.intro":
@@ -49,8 +48,7 @@ export const ui = {
     "hero.title1": "Construyo",
     "hero.title2": "experiencias",
     "hero.title3": "digitales.",
-    "hero.description":
-      "Desarrolladora web con experiencia en proyectos digitales reales, interfaces responsive y aplicaciones web. Combino tecnología, creatividad y atención al detalle para crear soluciones funcionales, accesibles y atractivas.",
+    "hero.description": "Desarrolladora Full Stack con experiencia en proyectos web reales. Creo soluciones digitales modernas, funcionales y accesibles, combinando desarrollo, diseño y experiencia de usuario.",
     "hero.projects": "Explorar proyectos",
     "hero.contact": "Contactar",
     "hero.location": "Barcelona, España",
@@ -62,7 +60,6 @@ export const ui = {
     "skills.description": "Technologies and tools I work with",
 
     // PROJECTS
-    "projects.eyebrow": "SELECTED WORK / 03",
     "projects.title": "Projects that",
     "projects.titleHighlight": "come to life.",
     "projects.intro":
@@ -99,8 +96,7 @@ export const ui = {
     "hero.title1": "I build",
     "hero.title2": "digital",
     "hero.title3": "experiences.",
-    "hero.description":
-      "Web developer with hands-on experience in real-world digital projects, responsive interfaces and web applications. I combine technology, creativity and attention to detail to build functional, accessible and visually engaging solutions.",
+    "hero.description": "Full Stack Developer with experience in real-world web projects. I create modern, functional and accessible digital solutions, combining development, design and user experience.",
     "hero.projects": "Explore projects",
     "hero.contact": "Get in touch",
     "hero.location": "Barcelona, Spain",
